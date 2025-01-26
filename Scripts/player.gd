@@ -103,9 +103,7 @@ func _physics_process(delta: float) -> void:
 		var thing_hit = front_ray.get_collider()
 		print(thing_hit)
 		
-	# ok cool this works. still keeping the function there in case I need it 
-	if Input.is_action_just_pressed("testinput"):
-		print(PlayerVariables.itemInventory)
+
 
 
 # this is just a test function rn
