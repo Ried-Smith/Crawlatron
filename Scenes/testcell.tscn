@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://umcuowqhnql4"]
+
+[ext_resource type="Script" path="res://addons/level_block/level_block_node.gd" id="1_7hag0"]
+[ext_resource type="Material" uid="uid://c71yladfjhgud" path="res://addons/level_block/default_material.tres" id="2_61oh4"]
+[ext_resource type="Texture2D" uid="uid://1v12r5n8pjpq" path="res://Visual Resources/TEST-TILES_03.png" id="3_rtu8l"]
+[ext_resource type="Script" path="res://Scripts/Globals.gd" id="4_udma1"]
+
+[node name="LevelBlock" type="Node3D"]
+script = ExtResource("1_7hag0")
+material = ExtResource("2_61oh4")
+texture_sheet = ExtResource("3_rtu8l")
+Globals = ExtResource("4_udma1")
+north_face = 0
+east_face = 0
+south_face = 0
+west_face = 0
+top_face = 9
+bottom_face = 6

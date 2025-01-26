@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://cc8lpylj7owt3"]
+
+[ext_resource type="PackedScene" uid="uid://dqu46uxrxmiyv" path="res://3D Models/BoobyBot-Colored.glb" id="1_c7hxj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oxvmg"]
+size = Vector3(1, 1.94974, 1.40222)
+
+[node name="BoobyBot" type="Node3D"]
+
+[node name="BoobyBot-Colored" parent="." instance=ExtResource("1_c7hxj")]
+transform = Transform3D(-0.22, 0, 1.9233e-08, 0, 0.22, 0, -1.9233e-08, 0, -0.22, 0, 0, 0.360366)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.178058, 0.907153, 0.738022)
+light_color = Color(1, 0.215847, 0.720286, 1)
+omni_range = 0.365
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.186056, 0.907153, 0.738022)
+light_color = Color(1, 0.215847, 0.720286, 1)
+omni_range = 0.365
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0061962, 0.0972996, 0.770568)
+light_energy = 5.28
+omni_range = 0.435971
+
+[node name="BoobyBot_Hitbox" type="RigidBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoobyBot_Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.717117, 0.201111)
+shape = SubResource("BoxShape3D_oxvmg")

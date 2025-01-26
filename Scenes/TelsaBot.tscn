@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://ho7pv8ol1dc8"]
+
+[ext_resource type="PackedScene" uid="uid://ci4n3r4bf3qxx" path="res://3D Models/TeslaBot-colored_fixed.glb" id="1_172lf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s8s73"]
+size = Vector3(1.78619, 2.00378, 1)
+
+[node name="TelsaBot" type="Node3D"]
+
+[node name="TeslaBot-colored_fixed" parent="." instance=ExtResource("1_172lf")]
+transform = Transform3D(0.22, 0, 0, 0, 0.22, 0, 0, 0, 0.22, 0, -1, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.342782, 0.229875)
+light_color = Color(0.752087, 0, 0.0681756, 1)
+light_energy = 3.854
+omni_range = 0.22
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.649316, -0.00354445)
+light_energy = 12.892
+omni_range = 0.31
+
+[node name="TeslaBot_HitBox" type="RigidBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TeslaBot_HitBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0541077, -0.0855103, 0)
+shape = SubResource("BoxShape3D_s8s73")

@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://ct1q7krp5tygp"]
+
+[ext_resource type="PackedScene" uid="uid://5bu5dy215xas" path="res://3D Models/HandsyBot-Colored.glb" id="1_ff3qy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bfxcr"]
+size = Vector3(1, 1.66759, 1.6123)
+
+[node name="HandsyBot" type="Node3D"]
+
+[node name="HandsyBot-Colored" parent="." instance=ExtResource("1_ff3qy")]
+transform = Transform3D(0.220254, 0, 0, 0, 0.220254, 0, 0, 0, 0.220254, 0, 0, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13765, 0)
+light_color = Color(0.988309, 0.138321, 3.85046e-07, 1)
+light_energy = 5.135
+omni_range = 0.415482
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.319472, 0, 0)
+light_color = Color(1.21289e-05, 0.354222, 0.958638, 1)
+omni_range = 0.257
+
+[node name="HandsyBot_Hitbox" type="RigidBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HandsyBot_Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.405712, -0.012207)
+shape = SubResource("BoxShape3D_bfxcr")

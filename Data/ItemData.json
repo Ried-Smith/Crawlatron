@@ -1,0 +1,26 @@
+{
+	"1": {
+	  "Name": "ClawArm",
+	  "PassiveSkill": null,
+	  "ActiveSkill": null,
+	  "Grid": "0,0/0,-1/1,0"
+	},
+	"2": {
+	  "Name": "PowerCore",
+	  "PassiveSkill": null,
+	  "ActiveSkill": null,
+	  "Grid": "0,0"
+	},
+	"3": {
+	  "Name": "PowerPiston",
+	  "PassiveSkill": null,
+	  "ActiveSkill": null,
+	  "Grid": "0,0/1,0"
+	},
+	"4": {
+	  "Name": "Item4",
+	  "PassiveSkill": null,
+	  "ActiveSkill": null,
+	  "Grid": "0,0"
+	}
+}

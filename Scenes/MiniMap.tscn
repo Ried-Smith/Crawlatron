@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx6u7w2fmwglk"]
+
+[ext_resource type="Script" path="res://Scripts/texture_rect.gd" id="1_mpfnu"]
+
+[node name="MiniMap" type="TextureRect"]
+anchors_preset = -1
+anchor_right = 0.137
+anchor_bottom = 0.15
+offset_right = 0.175995
+offset_bottom = -0.200005
+script = ExtResource("1_mpfnu")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.089
+anchor_bottom = 1.0
+offset_right = -0.0620117
+offset_bottom = -2.0
