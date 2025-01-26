@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxr2ql4gs4emp"
-path="res://.godot/imported/ClawArm.png-2746ffe2f914b6d3bc7671582492c7fc.ctex"
+uid="uid://c3vi107myoom8"
+path="res://.godot/imported/health_full.png-bfd8c1b8cd0e7da75ee7ec469bddefbc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/ClawArm.png"
-dest_files=["res://.godot/imported/ClawArm.png-2746ffe2f914b6d3bc7671582492c7fc.ctex"]
+source_file="res://Visual Resources/health_full.png"
+dest_files=["res://.godot/imported/health_full.png-bfd8c1b8cd0e7da75ee7ec469bddefbc.ctex"]
 
 [params]
 

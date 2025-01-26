@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ddxrdcnua57ye"]
+[gd_scene load_steps=9 format=3 uid="uid://ddxrdcnua57ye"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_xfgve"]
 [ext_resource type="PackedScene" uid="uid://c6fuu1lurnocw" path="res://Scenes/map.tscn" id="2_usn4h"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://b3uwn7kq0rxwv" path="res://Audio Resources/ambient.wav" id="5_03vwv"]
 [ext_resource type="PackedScene" uid="uid://050lspxqr85s" path="res://Scenes/inventory.tscn" id="6_0cl7m"]
 [ext_resource type="PackedScene" uid="uid://dx6u7w2fmwglk" path="res://Scenes/MiniMap.tscn" id="7_1n7vw"]
+[ext_resource type="PackedScene" uid="uid://di7124re2rl7d" path="res://Scenes/battle_interface.tscn" id="8_m4354"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_xfgve")
@@ -24,3 +25,5 @@ stream = ExtResource("5_03vwv")
 [node name="TextureRect" parent="." instance=ExtResource("7_1n7vw")]
 offset_right = 20.176
 offset_bottom = 17.8
+
+[node name="BattleInterface" parent="." instance=ExtResource("8_m4354")]

@@ -118,7 +118,8 @@ func update_faces(cell_list,cell_type) -> void:
 			pass
 		4: 
 			#door
-			return
+			top_face = 6
+			bottom_face = 6
 	if cell_list.has(my_grid_pos + Vector2i.RIGHT):
 		east_face = -1
 	if cell_list.has(my_grid_pos + Vector2i.LEFT):

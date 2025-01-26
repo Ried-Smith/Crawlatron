@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxr2ql4gs4emp"
-path="res://.godot/imported/ClawArm.png-998cfa2f5a13adf7a7eadd96a36bd930.ctex"
+uid="uid://cqt6sf3hqe27m"
+path="res://.godot/imported/bars_over.png-f12ebcf1f270325d74fc446e3c4989e5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Visual Resources/ClawArm.png"
-dest_files=["res://.godot/imported/ClawArm.png-998cfa2f5a13adf7a7eadd96a36bd930.ctex"]
+source_file="res://Visual Resources/bars_over.png"
+dest_files=["res://.godot/imported/bars_over.png-f12ebcf1f270325d74fc446e3c4989e5.ctex"]
 
 [params]
 

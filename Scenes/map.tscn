@@ -1,11 +1,11 @@
 [gd_scene load_steps=14 format=4 uid="uid://c6fuu1lurnocw"]
 
 [ext_resource type="Script" path="res://Scripts/map.gd" id="1_dgcam"]
-[ext_resource type="Texture2D" uid="uid://bkl07uljv54jt" path="res://Visual Resources/tile.png" id="1_o7qxa"]
-[ext_resource type="Texture2D" uid="uid://b4tvyfpls7xij" path="res://Visual Resources/enemy_tile.png" id="3_hnl0k"]
-[ext_resource type="Texture2D" uid="uid://xkvp8v7xov6d" path="res://Visual Resources/light_tile_ceiling.png" id="4_jm6ap"]
-[ext_resource type="Texture2D" uid="uid://c2h6g2e1irldr" path="res://Visual Resources/secret_tile.png" id="5_3tbef"]
-[ext_resource type="Texture2D" uid="uid://d1cnay4ayxkb5" path="res://Visual Resources/door_tile.png" id="6_xxpee"]
+[ext_resource type="Texture2D" uid="uid://bkl07uljv54jt" path="res://Visual Resources/Tiles/Def_tile.png" id="1_o7qxa"]
+[ext_resource type="Texture2D" uid="uid://b4tvyfpls7xij" path="res://Visual Resources/Tiles/enemy_tile.png" id="3_hnl0k"]
+[ext_resource type="Texture2D" uid="uid://xkvp8v7xov6d" path="res://Visual Resources/Tiles/light_tile_ceiling.png" id="4_jm6ap"]
+[ext_resource type="Texture2D" uid="uid://c2h6g2e1irldr" path="res://Visual Resources/Tiles/secret_tile.png" id="5_3tbef"]
+[ext_resource type="Texture2D" uid="uid://d1cnay4ayxkb5" path="res://Visual Resources/Tiles/door_tile.png" id="6_xxpee"]
 [ext_resource type="Texture2D" uid="uid://t7m8feh5yywe" path="res://Visual Resources/pilot.jpg" id="7_m38e5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_osrxj"]
@@ -362,9 +362,3 @@ collision_enabled = false
 position = Vector2(807, -1)
 scale = Vector2(2.625, 2.64844)
 texture = ExtResource("7_m38e5")
-
-[node name="SubViewport" type="SubViewport" parent="."]
-
-[node name="TextureRect" type="TextureRect" parent="SubViewport"]
-offset_right = 40.0
-offset_bottom = 40.0

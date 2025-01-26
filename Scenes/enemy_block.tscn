@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=3 uid="uid://ctkrrygcrhpc3"]
+
+[ext_resource type="Texture2D" uid="uid://5ng086kfn7xa" path="res://Visual Resources/panel_2.png" id="1_x6wv6"]
+[ext_resource type="FontFile" uid="uid://coad5ufcmo1ka" path="res://Visual Resources/Fonts/Black_Ops_One (1)/BlackOpsOne-Regular.ttf" id="2_kufok"]
+[ext_resource type="Texture2D" uid="uid://dgfs4eeffqhff" path="res://Visual Resources/bar_empty.png" id="3_1lycb"]
+[ext_resource type="Texture2D" uid="uid://dqwryrvmu11jv" path="res://Visual Resources/armor_health.png" id="4_3u868"]
+[ext_resource type="Texture2D" uid="uid://dy0b3onyevtra" path="res://Visual Resources/shield_energy.png" id="5_6gwmg"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_x6wv6")
+
+[node name="Bot_Name" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 568.0
+offset_bottom = 169.0
+theme_override_fonts/normal_font = ExtResource("2_kufok")
+theme_override_font_sizes/normal_font_size = 66
+bbcode_enabled = true
+text = "[center] BOT NAME [/center]"
+
+[node name="Attack Name" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_top = 338.0
+offset_right = 576.0
+offset_bottom = 455.0
+theme_override_fonts/normal_font = ExtResource("2_kufok")
+theme_override_font_sizes/normal_font_size = 46
+bbcode_enabled = true
+text = "[center] Attack Name [/center]"
+scroll_active = false
+
+[node name="Health" type="TextureProgressBar" parent="."]
+layout_mode = 1
+offset_left = 67.0
+offset_top = 220.3
+offset_right = 147.0
+offset_bottom = 670.3
+rotation = -1.5708
+value = 40.0
+fill_mode = 2
+texture_under = ExtResource("3_1lycb")
+texture_progress = ExtResource("4_3u868")
+
+[node name="Shield" type="TextureProgressBar" parent="."]
+layout_mode = 1
+offset_left = 67.0
+offset_top = 327.04
+offset_right = 147.0
+offset_bottom = 777.04
+rotation = -1.5708
+value = 92.0
+fill_mode = 2
+texture_under = ExtResource("3_1lycb")
+texture_progress = ExtResource("5_6gwmg")
+
+[node name="ATB" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
