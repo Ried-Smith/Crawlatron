@@ -11,11 +11,7 @@ extends Node3D
 @onready var inventoryMenu = $"../Inventory"
 @onready var battleInterface = $"../BattleInterface"
 
-
-
-
 const MOVE_SPEED = 0.3
-
 
 @export var headbob_on = false
 @export var move_juice  = false
@@ -117,9 +113,11 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("Inventory"):
 		if !inventoryMenu.is_visible():
 			inventoryMenu.show()
+			inventoryMenu.set_process(true)
 
 		else:
 			inventoryMenu.hide()
+			inventoryMenu.set_process(false)
 
 	if Input.is_action_just_pressed("Attack") and front_ray.is_colliding():
 		var thing_hit = front_ray.get_collider()
@@ -127,13 +125,21 @@ func _physics_process(delta: float) -> void:
 			print("wall")
 		else:
 			hit(thing_hit)
+	
+	if Input.is_action_just_pressed("testinput"):
+		pass
+		inventoryMenu._key_check()
 
 func hit(hit_object):
 	match hit_object.collision_layer:
 		1: #walls
 			pass
 		2: #doors
-			hit_object.open_door()
+			#TODO: open door function should check if player has 'key' in inventory, if not, fuck you
+			if inventoryMenu._key_check() == true:
+				hit_object.open_door()
+			#else:
+				#print("no key detected")
 		4: #enemy
 			if !battleInterface.is_visible():
 				battleInterface.show()

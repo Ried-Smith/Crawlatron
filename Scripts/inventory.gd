@@ -141,11 +141,15 @@ func _on_slot_mouse_exited(a_Slot):
 
 
 func _on_button_spawn_pressed():
+	var itemToSpawn = 1
+	
 	var newItem = itemScene.instantiate()
 	add_child(newItem)
-	newItem._loadItem(1)
+	newItem._loadItem(itemToSpawn)
 	newItem.selected = true
 	itemHeld = newItem
+	
+	itemHeld.itemID = itemToSpawn
 
 
 #TODO: make this work if I feel like it
@@ -203,6 +207,8 @@ func _rotate_item():
 func _place_item():
 	if not canPlace or not currentSlot:
 		return
+		
+	PlayerVariables.heldItems.append(itemHeld.itemID)
 	
 	var calculatedGridId = currentSlot.slot_ID + iconAnchor.x * colCount + iconAnchor.y
 	itemHeld._snap_to(gridArray[calculatedGridId].global_position)
@@ -216,6 +222,7 @@ func _place_item():
 		var gridToCheck = currentSlot.slot_ID + grid[0] + grid[1] * colCount
 		gridArray[gridToCheck].state = gridArray[gridToCheck].States.TAKEN
 		gridArray[gridToCheck].itemStored = itemHeld
+		
 	
 	itemHeld = null
 	_clear_grid()
@@ -294,3 +301,10 @@ func _equip_item(itemToEquip, slotToEquip):
 	itemToEquip.get_parent().remove_child(itemToEquip)
 	itemHeld = null
 	_clear_grid() # do I even need clear grid?
+
+
+func _key_check():
+	print(PlayerVariables.heldItems)
+	if PlayerVariables.heldItems.has(1):
+		print("its here you fuck")
+		return true

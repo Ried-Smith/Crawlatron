@@ -7,3 +7,5 @@ var leftArmSlot
 var chestSlot
 var rightLegSlot
 var leftLegSlot
+
+var heldItems = []

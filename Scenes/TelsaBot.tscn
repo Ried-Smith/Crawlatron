@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ho7pv8ol1dc8"]
+[gd_scene load_steps=4 format=3 uid="uid://ho7pv8ol1dc8"]
 
 [ext_resource type="PackedScene" uid="uid://ci4n3r4bf3qxx" path="res://3D Models/TeslaBot-colored_fixed.glb" id="1_172lf"]
+[ext_resource type="Script" path="res://Scripts/tesla_bot_hit_box.gd" id="2_xy7jd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s8s73"]
 size = Vector3(1.78619, 2.00378, 1)
@@ -22,6 +23,8 @@ light_energy = 12.892
 omni_range = 0.31
 
 [node name="TeslaBot_HitBox" type="RigidBody3D" parent="."]
+collision_layer = 4
+script = ExtResource("2_xy7jd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TeslaBot_HitBox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0541077, -0.0855103, 0)
