@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjmk4m0cjbfvh"]
+
+[ext_resource type="Script" path="res://Scenes/skill.gd" id="1_1np2x"]
+[ext_resource type="Texture2D" uid="uid://dcvs5a8cfp847" path="res://Visual Resources/Panel_1.png" id="1_cqswh"]
+[ext_resource type="Texture2D" uid="uid://cxilvn3kg15kp" path="res://Visual Resources/switch_off.png" id="2_28uv0"]
+[ext_resource type="Texture2D" uid="uid://dcf12qty7tqm7" path="res://Visual Resources/switch_on.png" id="4_mwu3b"]
+[ext_resource type="FontFile" uid="uid://coad5ufcmo1ka" path="res://Visual Resources/Fonts/Black_Ops_One (1)/BlackOpsOne-Regular.ttf" id="4_snk13"]
+
+[node name="Skill" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -576.0
+offset_bottom = -448.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1np2x")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_cqswh")
+
+[node name="switch" type="Button" parent="."]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 40.0
+offset_right = 552.0
+offset_bottom = 186.0
+toggle_mode = true
+flat = true
+
+[node name="skill name" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0677083
+anchor_top = 0.475
+anchor_right = 0.0677083
+anchor_bottom = 0.475
+offset_top = -48.0
+offset_right = 368.0
+offset_bottom = 48.0
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("4_snk13")
+theme_override_font_sizes/normal_font_size = 80
+text = "Default"
+fit_content = true
+scroll_active = false
+metadata/_edit_use_anchors_ = true
+
+[node name="SwitchOn" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(504, 96)
+texture = ExtResource("4_mwu3b")
+
+[node name="SwitchOff" type="Sprite2D" parent="."]
+position = Vector2(504, 129)
+texture = ExtResource("2_28uv0")

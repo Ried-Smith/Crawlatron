@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://u0oiusp2vfsx"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_85bbh"]
+
+[node name="Player" type="Node3D"]
+script = ExtResource("1_85bbh")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+fov = 90.0
+
+[node name="RayForward" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -2)
+
+[node name="RayBack" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 2)
+
+[node name="RayRight" type="RayCast3D" parent="."]
+target_position = Vector3(2, 0, 0)
+
+[node name="RayLeft" type="RayCast3D" parent="."]
+target_position = Vector3(-2, 0, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.809069, 0.640745, 0.244088, 1)
+light_energy = 3.14
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_specular = 0.0
+omni_range = 3.5
