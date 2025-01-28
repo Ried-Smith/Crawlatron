@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://cjca2slnjiojl"]
+
+[ext_resource type="Texture2D" uid="uid://dcvs5a8cfp847" path="res://Visual Resources/Panel_1.png" id="1_an6uh"]
+[ext_resource type="Script" path="res://Scripts/player_block.gd" id="1_vfswh"]
+[ext_resource type="Texture2D" uid="uid://dgfs4eeffqhff" path="res://Visual Resources/bar_empty.png" id="2_cmnfc"]
+[ext_resource type="Texture2D" uid="uid://brbbmvk66kji8" path="res://Visual Resources/bars_over2.png" id="3_n81ro"]
+[ext_resource type="Texture2D" uid="uid://dqwryrvmu11jv" path="res://Visual Resources/armor_health.png" id="4_m7paq"]
+[ext_resource type="Texture2D" uid="uid://cqt6sf3hqe27m" path="res://Visual Resources/bars_over.png" id="5_l6k2d"]
+[ext_resource type="Texture2D" uid="uid://dy0b3onyevtra" path="res://Visual Resources/shield_energy.png" id="6_blnob"]
+
+[node name="PlayerBlock" type="Control"]
+layout_mode = 3
+anchor_right = 0.507
+anchor_bottom = 0.901
+offset_right = -482.064
+offset_bottom = -285.848
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.905, 0.905)
+script = ExtResource("1_vfswh")
+
+[node name="Panel" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 107.182
+offset_top = -3.05176e-05
+offset_right = 696.182
+offset_bottom = 208.0
+rotation = 1.5708
+scale = Vector2(0.515, 0.515)
+texture = ExtResource("1_an6uh")
+expand_mode = 1
+flip_v = true
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 53.0387
+offset_top = 36.4641
+offset_right = 133.039
+offset_bottom = 486.464
+scale = Vector2(0.515, 0.515)
+value = 100.0
+fill_mode = 3
+texture_under = ExtResource("2_cmnfc")
+texture_over = ExtResource("3_n81ro")
+texture_progress = ExtResource("4_m7paq")
+
+[node name="ShieldBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 5.52486
+offset_top = 36.4641
+offset_right = 85.5247
+offset_bottom = 486.464
+scale = Vector2(0.515, 0.515)
+value = 100.0
+fill_mode = 3
+texture_under = ExtResource("2_cmnfc")
+texture_over = ExtResource("5_l6k2d")
+texture_progress = ExtResource("6_blnob")

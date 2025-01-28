@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=3 uid="uid://u0oiusp2vfsx"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_85bbh"]
+[ext_resource type="Script" path="res://Scripts/Globals.gd" id="2_5o8fa"]
+[ext_resource type="AudioStream" uid="uid://b3akyfv5xakqt" path="res://Audio Resources/MechStep.wav" id="2_wifbn"]
+[ext_resource type="AudioStream" uid="uid://7frfcri37nwt" path="res://Audio Resources/MechTurn.wav" id="3_l5af0"]
+
+[sub_resource type="Animation" id="Animation_5pn70"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bf0dm"]
+resource_name = "headbob"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 3.605),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.25, 0), Vector3(0, -0.125, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wc3dn"]
+_data = {
+"RESET": SubResource("Animation_5pn70"),
+"headbob": SubResource("Animation_bf0dm")
+}
+
+[node name="Player" type="Node3D"]
+script = ExtResource("1_85bbh")
+headbob_on = true
+move_juice = true
+Globals = ExtResource("2_5o8fa")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+fov = 90.0
+
+[node name="RayForward" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -2)
+collision_mask = 15
+
+[node name="RayBack" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 2)
+collision_mask = 15
+
+[node name="RayRight" type="RayCast3D" parent="."]
+target_position = Vector3(2, 0, 0)
+collision_mask = 15
+
+[node name="RayLeft" type="RayCast3D" parent="."]
+target_position = Vector3(-2, 0, 0)
+collision_mask = 15
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+visible = false
+light_energy = 3.14
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_specular = 0.0
+omni_range = 3.5
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+visible = false
+light_energy = 5.994
+spot_range = 3.273
+spot_angle = 36.97
+spot_angle_attenuation = 1.68179
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wc3dn")
+}
+
+[node name="MechStep" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_wifbn")
+
+[node name="MechTurn" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_l5af0")
+
+[node name="WallHit" type="AudioStreamPlayer2D" parent="."]

@@ -11,7 +11,11 @@ extends Node3D
 @onready var inventoryMenu = $"../Inventory"
 @onready var battleInterface = $"../BattleInterface"
 
+
+
+
 const MOVE_SPEED = 0.3
+
 
 @export var headbob_on = false
 @export var move_juice  = false
@@ -30,7 +34,7 @@ var playerShieldMax = 100
 #TODO: when changing inv call update func
 var equip = []
 
-enum {FIRE,ELECTRIC,PHYS,WIERD}
+enum {FIRE,ELEC,PHYS,WIERD}
 var weap1
 var weap2
 var weap3
@@ -113,11 +117,9 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("Inventory"):
 		if !inventoryMenu.is_visible():
 			inventoryMenu.show()
-			inventoryMenu.set_process(true)
 
 		else:
 			inventoryMenu.hide()
-			inventoryMenu.set_process(false)
 
 	if Input.is_action_just_pressed("Attack") and front_ray.is_colliding():
 		var thing_hit = front_ray.get_collider()
@@ -144,7 +146,7 @@ func hit(hit_object):
 			if !battleInterface.is_visible():
 				battleInterface.show()
 				fighting  = true
-				hit_object.fight()
+				hit_object.fight_ready()
 				setWeapons()
 				setSkills()
 				setStats()
@@ -182,6 +184,22 @@ func defaultSkillsAndWeaps():
 	weap4.name = "Name 4"
 	
 	weap1.type = PHYS 
-	weap2.type = PHYS 
-	weap3.type = PHYS 
-	weap4.type = PHYS 
+	weap2.type = ELEC
+	weap3.type = FIRE 
+	weap4.type = PHYS
+	
+	weap1.dmg_min = 5
+	weap2.dmg_min = 5
+	weap3.dmg_min = 5
+	weap4.dmg_min = 5
+	
+	weap1.dmg_max = 15
+	weap2.dmg_max = 15
+	weap3.dmg_max = 15
+	weap4.dmg_max = 15
+	
+	weap1.charge_time = 2
+	weap1.charge_time = 4
+	weap1.charge_time = 6
+	weap1.charge_time = 8
+	

@@ -1,0 +1,165 @@
+[gd_scene load_steps=4 format=3 uid="uid://cyjah1p32e4if"]
+
+[ext_resource type="Script" path="res://addons/level_block/level_block_node.gd" id="1_hwnqb"]
+[ext_resource type="Material" uid="uid://c71yladfjhgud" path="res://addons/level_block/default_material.tres" id="2_o1t4k"]
+[ext_resource type="Texture2D" uid="uid://dul4gcwu55m0b" path="res://addons/level_block/example_tileset.png" id="3_it5iy"]
+
+[node name="TestLevel" type="Node3D"]
+
+[node name="Blocks" type="Node3D" parent="."]
+
+[node name="LevelBlock" type="Node3D" parent="Blocks"]
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+north_face = 9
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock2" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+north_face = 9
+west_face = 0
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock3" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+north_face = 7
+east_face = 7
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock4" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+east_face = 0
+south_face = 5
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock5" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock6" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+south_face = 5
+west_face = 0
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock8" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+east_face = 5
+west_face = 5
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock10" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+east_face = 0
+west_face = 0
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock11" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock12" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock16" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 10)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock15" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 10)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock13" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock18" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 12)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock17" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 12)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock14" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock20" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 14)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+top_face = 10
+bottom_face = 0
+
+[node name="LevelBlock19" type="Node3D" parent="Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 14)
+script = ExtResource("1_hwnqb")
+material = ExtResource("2_o1t4k")
+texture_sheet = ExtResource("3_it5iy")
+top_face = 10
+bottom_face = 0

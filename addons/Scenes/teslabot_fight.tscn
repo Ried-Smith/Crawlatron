@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://e6qpexpoyot1"]
+
+[ext_resource type="PackedScene" uid="uid://ho7pv8ol1dc8" path="res://Scenes/TelsaBot.tscn" id="1_co85a"]
+[ext_resource type="Script" path="res://addons/level_block/level_block_node.gd" id="3_7av3g"]
+[ext_resource type="Material" uid="uid://c71yladfjhgud" path="res://addons/level_block/default_material.tres" id="4_rdskg"]
+[ext_resource type="PackedScene" uid="uid://di7124re2rl7d" path="res://Scenes/battle_interface.tscn" id="5_8vjrb"]
+[ext_resource type="Texture2D" uid="uid://1v12r5n8pjpq" path="res://Visual Resources/Tiles/TEST-TILES_03.png" id="5_bbh48"]
+
+[node name="Teslabot_Fight" type="Node3D"]
+
+[node name="BattleInterface" parent="." instance=ExtResource("5_8vjrb")]
+
+[node name="TelsaBot" parent="." instance=ExtResource("1_co85a")]
+
+[node name="LevelBlock" type="Node3D" parent="."]
+script = ExtResource("3_7av3g")
+material = ExtResource("4_rdskg")
+texture_sheet = ExtResource("5_bbh48")
+north_face = 0
+east_face = 0
+south_face = 1
+west_face = 0
+top_face = 6
+bottom_face = 6
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+fov = 90.0
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Camera3D"]
+spot_range = 808.726
+spot_angle = 131.53

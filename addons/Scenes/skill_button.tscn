@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://j471y7un4062"]
+
+[ext_resource type="Texture2D" uid="uid://cxilvn3kg15kp" path="res://Visual Resources/switch_off.png" id="1_l35aa"]
+
+[node name="CheckButton" type="CheckButton"]
+icon = ExtResource("1_l35aa")
