@@ -26,6 +26,8 @@ var playerHealthMax = 100
 var playerShield = 100
 var playerShieldMax = 100
 
+var charge
+
 #TODO: dont let the number of skills equipped from items exceed 6
 
 #TODO: dont let the number of weapons equipped from items exceed 4
@@ -127,17 +129,15 @@ func _physics_process(delta: float) -> void:
 			print("wall")
 		else:
 			hit(thing_hit)
-	
-	if Input.is_action_just_pressed("testinput"):
-		pass
-		inventoryMenu._key_check()
+			
+	if fighting == true:
+		print("test")
 
 func hit(hit_object):
 	match hit_object.collision_layer:
 		1: #walls
 			pass
 		2: #doors
-			#TODO: open door function should check if player has 'key' in inventory, if not, fuck you
 			if inventoryMenu._key_check() == true:
 				hit_object.open_door()
 			#else:
@@ -150,6 +150,7 @@ func hit(hit_object):
 				setWeapons()
 				setSkills()
 				setStats()
+				fight()
 			else:
 				battleInterface.hide()
 				fighting  = false
@@ -203,3 +204,86 @@ func defaultSkillsAndWeaps():
 	weap1.charge_time = 6
 	weap1.charge_time = 8
 	
+func fight():
+	var attack_num = 0
+	#if(!alive):
+		#TODO: Climb tree get player, set up function for fight end
+	get_parent().queue_free()
+	charge = null
+	pass
+	match randi()%4:
+		0:
+			attack_1()
+		1:
+			attack_2()
+		2:
+			attack_3()
+		3:
+			attack_4()
+	
+	
+#func fight_ready():
+	#bot_name = "[center]Handsy Bot[/center]"
+	#health_bar_max = tbHealth
+	#health_bar = tbHealth
+	#shield_bar_max = tbShield
+	#shield_bar = tbShield
+	#battleInterface = get_parent().get_parent().battleInterface
+	#battleInterface.enemy_block.health.max_value = health_bar_max 
+	#battleInterface.enemy_block.health.value = health_bar 
+	#battleInterface.enemy_block.shield.max_value = shield_bar_max 
+	#battleInterface.enemy_block.shield.value = shield_bar 
+	#battleInterface.enemy_block.bot_name.text = bot_name
+	#fight_started = true
+	#fight()
+
+func attack_1():
+	charge = Timer.new()
+	#charge.connect("timeout", _on_timer_timeout)
+	add_child(charge)
+	charge.wait_time = 4
+	charge.one_shot = true
+	charge.start()
+	battleInterface.enemy_block.attack_name.text = "[center]"+"The Big Chop"+"[/center]"
+	var dmg = 10
+	battleInterface.enemy_block.atb.max_value = charge.wait_time
+	time_left = charge.time_left
+func attack_2():
+	charge = Timer.new()
+	charge.connect("timeout", _on_timer_timeout)
+	add_child(charge)
+	charge.wait_time = 2
+	charge.one_shot = true
+	charge.start()
+	battleInterface.enemy_block.attack_name.text = "[center]"+"Krusher"+"[/center]"
+	var dmg = 10
+	battleInterface.enemy_block.atb.max_value = charge.wait_time
+	time_left = charge.time_left
+func attack_3():
+	charge = Timer.new()
+	charge.connect("timeout", _on_timer_timeout)
+	add_child(charge)
+	charge.wait_time = 6
+	charge.one_shot = true
+	charge.start()
+	battleInterface.enemy_block.attack_name.text = "[center]"+"Pincer Maneuver"+"[/center]"
+	var dmg = 10
+	battleInterface.enemy_block.atb.max_value = charge.wait_time
+	time_left = charge.time_left
+func attack_4():
+	test_kill = true
+	charge = Timer.new()
+	charge.connect("timeout", _on_timer_timeout)
+	add_child(charge)
+	charge.wait_time = 10
+	charge.one_shot = true
+	charge.start()
+	battleInterface.enemy_block.attack_name.text = "[center]"+"Omega Vice Grip Destruction"+"[/center]"
+	var dmg = 10
+	battleInterface.enemy_block.atb.max_value = charge.wait_time
+	time_left = charge.time_left
+
+func update_bars():
+	battleInterface.enemy_block.health.value = tbHealth
+	battleInterface.enemy_block.shield.value = tbShield
+	battleInterface.enemy_block.atb.value = time_left

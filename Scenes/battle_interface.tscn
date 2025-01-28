@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://d305w0i45tfxw" path="res://Visual Resources/Artboard_9.png" id="2_hnxxf"]
 [ext_resource type="PackedScene" uid="uid://ce633u7qw6cby" path="res://Scenes/attack_bar.tscn" id="2_iawlf"]
 [ext_resource type="PackedScene" uid="uid://ctkrrygcrhpc3" path="res://Scenes/enemy_block.tscn" id="3_lpuqo"]
-[ext_resource type="PackedScene" uid="uid://cjca2slnjiojl" path="res://Scenes/player_block.tscn" id="4_8wy57"]
+[ext_resource type="PackedScene" path="res://Scenes/player_block.tscn" id="4_8wy57"]
 
 [node name="BattleInterface" type="Control"]
 layout_mode = 3

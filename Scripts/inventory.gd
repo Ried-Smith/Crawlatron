@@ -9,6 +9,7 @@ extends Control
 @onready var scrollContainer = $ItemInventory/MarginContainer/VBoxContainer/ScrollContainer
 @onready var colCount = $ItemInventory/MarginContainer/VBoxContainer/ScrollContainer/GridContainer.columns
 @onready var inventoryMenu = $"."
+@onready var ItemInventory = $ItemInventory
 
 @onready var playerScene = preload("res://Scenes/player.tscn").instantiate()
 
@@ -35,7 +36,7 @@ func _ready():
 	for i in range(32):
 		createSlot()
 		
-	inventoryMenu.hide()
+	ItemInventory.hide()
 	
 func _process(delta):
 	

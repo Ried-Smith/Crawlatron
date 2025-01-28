@@ -121,7 +121,12 @@ func update_bars():
 	battleInterface.enemy_block.shield.value = tbShield
 	battleInterface.enemy_block.atb.value = time_left
 	
-	
+func _on_death():
+	# item spawner show
+	# put item in slot
+	# once item placed, hide item spawner
+	# 
+
 func _on_timer_timeout():
 	if(test_kill):
 		alive = false
