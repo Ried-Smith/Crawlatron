@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://d15h5jdybxn2r"]
+
+[ext_resource type="Texture2D" uid="uid://chgh2xdx4g7fy" path="res://Visual Resources/doortexture.png" id="1_bs2f2"]
+[ext_resource type="Script" path="res://Scripts/door.gd" id="2_wqtlp"]
+[ext_resource type="AudioStream" uid="uid://cnfvnkdmhy3pw" path="res://Audio Resources/WallHit.wav" id="3_ksgdq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_30538"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_myxyq"]
+albedo_texture = ExtResource("1_bs2f2")
+
+[node name="CSGMesh3D" type="CSGMesh3D"]
+use_collision = true
+collision_layer = 2
+mesh = SubResource("BoxMesh_30538")
+material = SubResource("StandardMaterial3D_myxyq")
+script = ExtResource("2_wqtlp")
+
+[node name="openDoor" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_ksgdq")
