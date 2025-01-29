@@ -10,7 +10,7 @@ extends Node3D
 
 @onready var inventoryMenu = $"../Inventory"
 @onready var battleInterface = $"../BattleInterface"
-
+@onready var itemDropMenu = $"../Inventory/ItemDrop"
 
 
 
@@ -117,11 +117,19 @@ func _physics_process(delta: float) -> void:
 		tween.tween_property(self, "transform", transform.rotated_local(Vector3.UP, -PI/2), MOVE_SPEED)
 
 	if Input.is_action_just_pressed("Inventory"):
+		#TODO: Change so that its not the whole inventory, just the first two
+		# so we dont get item drop in there
+		
 		if !inventoryMenu.is_visible():
 			inventoryMenu.show()
-
+			itemDropMenu.hide()
+			inventoryMenu.set_physics_process(true)
+			
 		else:
 			inventoryMenu.hide()
+			itemDropMenu.hide()
+			inventoryMenu.set_physics_process(false)
+			
 
 	if Input.is_action_just_pressed("Attack") and front_ray.is_colliding():
 		var thing_hit = front_ray.get_collider()
@@ -129,9 +137,10 @@ func _physics_process(delta: float) -> void:
 			print("wall")
 		else:
 			hit(thing_hit)
-			
-	if fighting == true:
-		print("test")
+	
+	if Input.is_action_just_pressed("testinput"):
+		inventoryMenu._on_death()
+
 
 func hit(hit_object):
 	match hit_object.collision_layer:
@@ -140,8 +149,7 @@ func hit(hit_object):
 		2: #doors
 			if inventoryMenu._key_check() == true:
 				hit_object.open_door()
-			#else:
-				#print("no key detected")
+
 		4: #enemy
 			if !battleInterface.is_visible():
 				battleInterface.show()
@@ -150,7 +158,7 @@ func hit(hit_object):
 				setWeapons()
 				setSkills()
 				setStats()
-				fight()
+				#fight()
 			else:
 				battleInterface.hide()
 				fighting  = false
@@ -204,22 +212,22 @@ func defaultSkillsAndWeaps():
 	weap1.charge_time = 6
 	weap1.charge_time = 8
 	
-func fight():
-	var attack_num = 0
-	#if(!alive):
-		#TODO: Climb tree get player, set up function for fight end
-	get_parent().queue_free()
-	charge = null
-	pass
-	match randi()%4:
-		0:
-			attack_1()
-		1:
-			attack_2()
-		2:
-			attack_3()
-		3:
-			attack_4()
+#func fight():
+	#var attack_num = 0
+	##if(!alive):
+		##TODO: Climb tree get player, set up function for fight end
+	#get_parent().queue_free()
+	#charge = null
+	#pass
+	#match randi()%4:
+		#0:
+			#attack_1()
+		#1:
+			#attack_2()
+		#2:
+			#attack_3()
+		#3:
+			#attack_4()
 	
 	
 #func fight_ready():
@@ -237,53 +245,53 @@ func fight():
 	#fight_started = true
 	#fight()
 
-func attack_1():
-	charge = Timer.new()
+#func attack_1():
+	#charge = Timer.new()
+	##charge.connect("timeout", _on_timer_timeout)
+	#add_child(charge)
+	#charge.wait_time = 4
+	#charge.one_shot = true
+	#charge.start()
+	#battleInterface.enemy_block.attack_name.text = "[center]"+"The Big Chop"+"[/center]"
+	#var dmg = 10
+	#battleInterface.enemy_block.atb.max_value = charge.wait_time
+	#time_left = charge.time_left
+#func attack_2():
+	#charge = Timer.new()
 	#charge.connect("timeout", _on_timer_timeout)
-	add_child(charge)
-	charge.wait_time = 4
-	charge.one_shot = true
-	charge.start()
-	battleInterface.enemy_block.attack_name.text = "[center]"+"The Big Chop"+"[/center]"
-	var dmg = 10
-	battleInterface.enemy_block.atb.max_value = charge.wait_time
-	time_left = charge.time_left
-func attack_2():
-	charge = Timer.new()
-	charge.connect("timeout", _on_timer_timeout)
-	add_child(charge)
-	charge.wait_time = 2
-	charge.one_shot = true
-	charge.start()
-	battleInterface.enemy_block.attack_name.text = "[center]"+"Krusher"+"[/center]"
-	var dmg = 10
-	battleInterface.enemy_block.atb.max_value = charge.wait_time
-	time_left = charge.time_left
-func attack_3():
-	charge = Timer.new()
-	charge.connect("timeout", _on_timer_timeout)
-	add_child(charge)
-	charge.wait_time = 6
-	charge.one_shot = true
-	charge.start()
-	battleInterface.enemy_block.attack_name.text = "[center]"+"Pincer Maneuver"+"[/center]"
-	var dmg = 10
-	battleInterface.enemy_block.atb.max_value = charge.wait_time
-	time_left = charge.time_left
-func attack_4():
-	test_kill = true
-	charge = Timer.new()
-	charge.connect("timeout", _on_timer_timeout)
-	add_child(charge)
-	charge.wait_time = 10
-	charge.one_shot = true
-	charge.start()
-	battleInterface.enemy_block.attack_name.text = "[center]"+"Omega Vice Grip Destruction"+"[/center]"
-	var dmg = 10
-	battleInterface.enemy_block.atb.max_value = charge.wait_time
-	time_left = charge.time_left
-
-func update_bars():
-	battleInterface.enemy_block.health.value = tbHealth
-	battleInterface.enemy_block.shield.value = tbShield
-	battleInterface.enemy_block.atb.value = time_left
+	#add_child(charge)
+	#charge.wait_time = 2
+	#charge.one_shot = true
+	#charge.start()
+	#battleInterface.enemy_block.attack_name.text = "[center]"+"Krusher"+"[/center]"
+	#var dmg = 10
+	#battleInterface.enemy_block.atb.max_value = charge.wait_time
+	#time_left = charge.time_left
+#func attack_3():
+	#charge = Timer.new()
+	#charge.connect("timeout", _on_timer_timeout)
+	#add_child(charge)
+	#charge.wait_time = 6
+	#charge.one_shot = true
+	#charge.start()
+	#battleInterface.enemy_block.attack_name.text = "[center]"+"Pincer Maneuver"+"[/center]"
+	#var dmg = 10
+	#battleInterface.enemy_block.atb.max_value = charge.wait_time
+	#time_left = charge.time_left
+#func attack_4():
+	#test_kill = true
+	#charge = Timer.new()
+	#charge.connect("timeout", _on_timer_timeout)
+	#add_child(charge)
+	#charge.wait_time = 10
+	#charge.one_shot = true
+	#charge.start()
+	#battleInterface.enemy_block.attack_name.text = "[center]"+"Omega Vice Grip Destruction"+"[/center]"
+	#var dmg = 10
+	#battleInterface.enemy_block.atb.max_value = charge.wait_time
+	#time_left = charge.time_left
+#
+#func update_bars():
+	#battleInterface.enemy_block.health.value = tbHealth
+	#battleInterface.enemy_block.shield.value = tbShield
+	#battleInterface.enemy_block.atb.value = time_left

@@ -179,4 +179,65 @@ layout_mode = 0
 offset_right = 121.0
 offset_bottom = 78.0
 
+[node name="ItemDrop" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -116.0
+offset_top = -83.5
+offset_right = 116.0
+offset_bottom = 83.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="ItemDrop"]
+layout_mode = 0
+offset_right = 236.0
+offset_bottom = 169.0
+texture = ExtResource("2_t4rvb")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="ItemDrop/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.5
+offset_top = -26.5
+offset_right = 28.5
+offset_bottom = 26.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_kvl75")
+expand_mode = 1
+
+[node name="ItemDropSlot" type="TextureRect" parent="ItemDrop/TextureRect/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="ItemGrab" type="Button" parent="ItemDrop/TextureRect/TextureRect/ItemDropSlot"]
+z_index = -1
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 34.0
+offset_bottom = 35.0
+
 [connection signal="pressed" from="ItemInventory/MarginContainer/VBoxContainer/Header/ButtonSpawn" to="." method="_on_button_spawn_pressed"]
+[connection signal="pressed" from="ItemDrop/TextureRect/TextureRect/ItemDropSlot/ItemGrab" to="." method="_on_item_grab_pressed"]

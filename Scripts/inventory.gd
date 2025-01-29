@@ -10,14 +10,11 @@ extends Control
 @onready var colCount = $ItemInventory/MarginContainer/VBoxContainer/ScrollContainer/GridContainer.columns
 @onready var inventoryMenu = $"."
 @onready var ItemInventory = $ItemInventory
+@onready var equipmentInventory = $ColorRect
+@onready var itemDropMenu = $ItemDrop
 
 @onready var playerScene = preload("res://Scenes/player.tscn").instantiate()
 
-
-
-#TODO: there has to be a more efficent way to declare these variabnles
-# I REALLY dont wanna do one for each slot but if I must....
-# well I could just pass each slot in the method
 
 @onready var helmEquipSlot = $ColorRect/Head/HeadSprite
 @onready var leftArmEquipSlot = $ColorRect/LeftArm/LeftArmSprite
@@ -25,6 +22,10 @@ extends Control
 @onready var chestEquipSlot = $ColorRect/Chest/ChestSprite
 @onready var leftLegEquipSlot = $ColorRect/LeftLeg/LeftLegSprite
 @onready var rightLegEquipSlot = $ColorRect/RightLeg/RightLegSprite
+
+@onready var itemDropSlot = $ItemDrop/TextureRect/TextureRect/ItemDropSlot
+
+
 
 var gridArray = []
 var itemHeld = null
@@ -36,18 +37,14 @@ func _ready():
 	for i in range(32):
 		createSlot()
 		
-	ItemInventory.hide()
+		inventoryMenu.hide()
 	
 func _process(delta):
 	
-	# did this make it crash lmao?
 		if itemHeld:
-		#TODO: but might wanna add it to here -- if scrollContainer.get_global_rect().hasPoint(get_global_mouse_position()):	
 			if Input.is_action_just_pressed("rotateItem"):
 				_rotate_item()
 			
-			#TODO: maybe if have time, be able to swap things around
-			#TODO: maybe add a nice sound and a message later 
 			
 			# God this is so fucking ass but it works its fine now
 			if Input.is_action_just_pressed("placeItem"):
@@ -89,7 +86,9 @@ func _process(delta):
 						_equip_item(itemHeld, rightLegEquipSlot)
 					else:
 						print("item already equipped!!")
-						
+				
+				elif itemDropSlot.get_global_rect().has_point(get_global_mouse_position()):
+					_on_item_grab_pressed()
 
 
 		else:
@@ -140,7 +139,30 @@ func _on_slot_mouse_entered(a_Slot):
 func _on_slot_mouse_exited(a_Slot):
 	_clear_grid()
 
+func _on_death():
+	# itemToSpawn will change based on what the enemy defeated is
+	var itemToSpawn = load("res://Visual Resources/ClawArm.png")
+	
+	inventoryMenu.show()
+	itemDropMenu.show()
+	# this texture will be different
+	itemDropSlot.texture = itemToSpawn
 
+
+func _on_item_grab_pressed():
+	var itemToSpawn = 1
+	
+	var newItem = itemScene.instantiate()
+	add_child(newItem)
+	newItem._loadItem(itemToSpawn)
+	newItem.selected = true
+	itemHeld = newItem
+	
+	itemHeld.itemID = itemToSpawn
+	
+	itemDropSlot.texture = null
+
+	
 func _on_button_spawn_pressed():
 	var itemToSpawn = 1
 	
@@ -228,6 +250,24 @@ func _place_item():
 	itemHeld = null
 	_clear_grid()
 
+#func _item_drop_pickup(itemToPickup):
+	#itemHeld = itemToPickup
+	#itemHeld.selected = true
+	#
+	##itemHeld.get_parent().remove_child(itemHeld)
+	#add_child(itemHeld)
+	#itemHeld.global_position = get_global_mouse_position()
+	#
+	#for grid in itemHeld.itemGrids:
+		#var gridToCheck = itemHeld.gridAnchor.slot_ID + grid[0] + grid[1] * colCount
+		#gridArray[gridToCheck].state = gridArray[gridToCheck].States.FREE
+		#gridArray[gridToCheck].itemStored = null
+	#
+	#_check_slot_availability(currentSlot)
+	#_setGrids.call_deferred(currentSlot)
+	#
+	#equipSlot.texture = null
+
 func _special_pickup(itemToPickup, equipSlot):
 	itemHeld = itemToPickup
 	itemHeld.selected = true
@@ -304,8 +344,8 @@ func _equip_item(itemToEquip, slotToEquip):
 	_clear_grid() # do I even need clear grid?
 
 
+
 func _key_check():
 	print(PlayerVariables.heldItems)
 	if PlayerVariables.heldItems.has(1):
-		print("its here you fuck")
 		return true

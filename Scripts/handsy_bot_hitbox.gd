@@ -3,6 +3,9 @@ extends RigidBody3D
 @export var tbHealth = 200
 @export var tbShield = 100
 
+# fuck it load the inventory in here
+@onready var inventoyUi = preload("res://Scenes/Inventory.tscn")
+
 var battleInterface
 var health_bar_max
 var health_bar
@@ -29,7 +32,9 @@ func _process(delta: float) -> void:
 	if (fight_started): 
 		time_left = charge.time_left
 		update_bars()
-		
+	
+	if Input.is_action_just_pressed("testinput"):
+		_on_death()
 	
 	
 func fight():
@@ -123,6 +128,7 @@ func update_bars():
 	
 func _on_death():
 	# item spawner show
+	inventoyUi.ItemDrop.show()
 	# put item in slot
 	# once item placed, hide item spawner
 	# 

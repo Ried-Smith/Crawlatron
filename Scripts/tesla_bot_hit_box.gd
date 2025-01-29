@@ -129,6 +129,8 @@ func update_bars():
 	battleInterface.enemy_block.shield.value = tbShield
 	battleInterface.enemy_block.atb.value = time_left
 
+
+
 func _on_timer_timeout():
 	if(test_kill):
 		alive = false
