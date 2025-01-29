@@ -117,6 +117,7 @@ func update_faces(cell_list,cell_type) -> void:
 			##Secret Wall
 			#pass
 		#4: 
+			#
 			#bottom_face = 6
 			#top_face = 6
 	if cell_list.has(my_grid_pos + Vector2i.RIGHT):

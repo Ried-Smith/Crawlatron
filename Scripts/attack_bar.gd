@@ -1,14 +1,10 @@
 extends Control
 
-@onready var playerBlock = $HUD/PlayerBlock
-@onready var enemy_block = $HUD/enemy_block
-@onready var ATB1 = $HUD/ATB1
-@onready var ATB2 = $HUD/ATB2
-@onready var ATB3 = $HUD/ATB3
-@onready var ATB4 = $HUD/ATB4
+@onready var weapon_name = $TextureRect/weapon_name
+@onready var atb = $TextureRect/atb
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	self.hide()
+	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bwkahmx4xk8qy"
+path="res://.godot/imported/oh_yeah_another_dead_bot.wav-7147f74e75251e89394047d3fa656f04.sample"
+
+[deps]
+
+source_file="res://Audio Resources/oh_yeah_another_dead_bot.wav"
+dest_files=["res://.godot/imported/oh_yeah_another_dead_bot.wav-7147f74e75251e89394047d3fa656f04.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -7,9 +7,13 @@ extends Node3D
 @onready var headbob :=$AnimationPlayer
 @onready var MechStep := $MechStep
 @onready var MechTurn := $MechTurn
-
+@onready var cant_leave1 := $"Cant leave"
+@onready var botkill1 = $botkill1
+@onready var botkill2 = $botkill2
+@onready var botkill3 = $botkill3
 @onready var inventoryMenu = $"../Inventory"
 @onready var battleInterface = $"../BattleInterface"
+@onready var pilot = $pilot
 
 
 
@@ -26,8 +30,6 @@ var playerHealthMax = 100
 var playerShield = 100
 var playerShieldMax = 100
 
-var charge
-
 #TODO: dont let the number of skills equipped from items exceed 6
 
 #TODO: dont let the number of weapons equipped from items exceed 4
@@ -37,10 +39,11 @@ var charge
 var equip = []
 
 enum {FIRE,ELEC,PHYS,WIERD}
-var weap1
-var weap2
-var weap3
-var weap4
+
+var weap1 = weapon.new()
+var weap2 = weapon.new()
+var weap3 = weapon.new()
+var weap4 = weapon.new()
 var weapons  = [weap1,weap2,weap3,weap4]
 
 var skill1
@@ -52,10 +55,25 @@ var skill6
 var skills = [skill1,skill2,skill3,skill4,skill5,skill6]
 
 var tween
-
 var fighting = false
-func _physics_process(delta: float) -> void:
+
+var charge1 
+var charge2
+var charge3
+var charge4
+var time_left1
+var time_left2
+var time_left3
+var time_left4
+
+func _ready() -> void:
+	defaultSkillsAndWeaps()
+
+func _process(delta: float) -> void:
 	updateDMG()
+
+
+func _physics_process(delta: float) -> void:
 	if tween is Tween:
 		if tween.is_running():
 			return
@@ -116,6 +134,21 @@ func _physics_process(delta: float) -> void:
 			tween = create_tween()
 		tween.tween_property(self, "transform", transform.rotated_local(Vector3.UP, -PI/2), MOVE_SPEED)
 
+	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
+	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
+	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
+	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
+	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
+	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
+	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
+	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
+	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
+	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
+	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
+	if Input.is_key_label_pressed(KEY_K) and not fighting:
+		get_parent().clear_enemies()
+
+
 	if Input.is_action_just_pressed("Inventory"):
 		if !inventoryMenu.is_visible():
 			inventoryMenu.show()
@@ -129,15 +162,17 @@ func _physics_process(delta: float) -> void:
 			print("wall")
 		else:
 			hit(thing_hit)
-			
-	if fighting == true:
-		print("test")
+	
+	if Input.is_action_just_pressed("testinput"):
+		pass
+		inventoryMenu._key_check()
 
 func hit(hit_object):
 	match hit_object.collision_layer:
 		1: #walls
 			pass
 		2: #doors
+			#TODO: open door function should check if player has 'key' in inventory, if not, fuck you
 			if inventoryMenu._key_check() == true:
 				hit_object.open_door()
 			#else:
@@ -150,12 +185,17 @@ func hit(hit_object):
 				setWeapons()
 				setSkills()
 				setStats()
-				fight()
-			else:
-				battleInterface.hide()
-				fighting  = false
+				attack()
 		8: #interactive switch or pickup
 			pass
+		16:
+			if (get_parent().Enemies.size()) <= 0:
+				get_parent().clear_map()
+			else:
+				pilot.show()
+				cant_leave1.play()
+				cant_leave1.connect("finished",_hide_pilot)
+				
 
 func setWeapons():
 	for item in equip:
@@ -179,10 +219,10 @@ func updateDMG():
 
 
 func defaultSkillsAndWeaps():
-	weap1.name = "Name 1"
-	weap2.name = "Name 2"
-	weap3.name = "Name 3"
-	weap4.name = "Name 4"
+	weap1.w_name = "Name 1"
+	weap2.w_name = "Name 2"
+	weap3.w_name = "Name 3"
+	weap4.w_name = "Name 4"
 	
 	weap1.type = PHYS 
 	weap2.type = ELEC
@@ -205,91 +245,33 @@ func defaultSkillsAndWeaps():
 	weap1.charge_time = 8
 
 func end_fight():
+	match randi()%3:
+		0:
+			botkill1.play()
+		1:
+			botkill2.play()
+		2: 
+			botkill3.play()
 	if battleInterface.is_visible():
 		battleInterface.hide()
 		fighting  = false
 
+func attack():
+	var charge1 = Timer.new()
+	var charge2 = Timer.new()
+	var charge3 = Timer.new()
+	var charge4 = Timer.new()
 	
-func fight():
-	var attack_num = 0
-	#if(!alive):
-		#TODO: Climb tree get player, set up function for fight end
-	get_parent().queue_free()
-	charge = null
-	pass
-	match randi()%4:
-		0:
-			attack_1()
-		1:
-			attack_2()
-		2:
-			attack_3()
-		3:
-			attack_4()
+	charge1.wait_time = weap1.charge_time
+	charge2.wait_time = weap2.charge_time
+	charge3.wait_time = weap3.charge_time
+	charge4.wait_time = weap4.charge_time
 	
-	
-#func fight_ready():
-	#bot_name = "[center]Handsy Bot[/center]"
-	#health_bar_max = tbHealth
-	#health_bar = tbHealth
-	#shield_bar_max = tbShield
-	#shield_bar = tbShield
-	#battleInterface = get_parent().get_parent().battleInterface
-	#battleInterface.enemy_block.health.max_value = health_bar_max 
-	#battleInterface.enemy_block.health.value = health_bar 
-	#battleInterface.enemy_block.shield.max_value = shield_bar_max 
-	#battleInterface.enemy_block.shield.value = shield_bar 
-	#battleInterface.enemy_block.bot_name.text = bot_name
-	#fight_started = true
-	#fight()
+	battleInterface.ATB1.weapon_name.text = "[center]"+weap1.w_name+"[/center]"
+	battleInterface.ATB2.weapon_name.text = "[center]"+weap2.w_name+"[/center]"
+	battleInterface.ATB3.weapon_name.text = "[center]"+weap3.w_name+"[/center]"
+	battleInterface.ATB4.weapon_name.text = "[center]"+weap4.w_name+"[/center]"
 
-func attack_1():
-	charge = Timer.new()
-	#charge.connect("timeout", _on_timer_timeout)
-	add_child(charge)
-	charge.wait_time = 4
-	charge.one_shot = true
-	charge.start()
-	battleInterface.enemy_block.attack_name.text = "[center]"+"The Big Chop"+"[/center]"
-	var dmg = 10
-	battleInterface.enemy_block.atb.max_value = charge.wait_time
-	time_left = charge.time_left
-func attack_2():
-	charge = Timer.new()
-	charge.connect("timeout", _on_timer_timeout)
-	add_child(charge)
-	charge.wait_time = 2
-	charge.one_shot = true
-	charge.start()
-	battleInterface.enemy_block.attack_name.text = "[center]"+"Krusher"+"[/center]"
-	var dmg = 10
-	battleInterface.enemy_block.atb.max_value = charge.wait_time
-	time_left = charge.time_left
-func attack_3():
-	charge = Timer.new()
-	charge.connect("timeout", _on_timer_timeout)
-	add_child(charge)
-	charge.wait_time = 6
-	charge.one_shot = true
-	charge.start()
-	battleInterface.enemy_block.attack_name.text = "[center]"+"Pincer Maneuver"+"[/center]"
-	var dmg = 10
-	battleInterface.enemy_block.atb.max_value = charge.wait_time
-	time_left = charge.time_left
-func attack_4():
-	test_kill = true
-	charge = Timer.new()
-	charge.connect("timeout", _on_timer_timeout)
-	add_child(charge)
-	charge.wait_time = 10
-	charge.one_shot = true
-	charge.start()
-	battleInterface.enemy_block.attack_name.text = "[center]"+"Omega Vice Grip Destruction"+"[/center]"
-	var dmg = 10
-	battleInterface.enemy_block.atb.max_value = charge.wait_time
-	time_left = charge.time_left
-
-func update_bars():
-	battleInterface.enemy_block.health.value = tbHealth
-	battleInterface.enemy_block.shield.value = tbShield
-	battleInterface.enemy_block.atb.value = time_left
+func _hide_pilot():
+	if pilot.is_visible():
+		pilot.hide()

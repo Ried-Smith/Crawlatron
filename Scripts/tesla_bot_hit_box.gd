@@ -74,6 +74,7 @@ func fight_ready():
 
 
 func attack_1():
+	test_kill = true
 	charge = Timer.new()
 	charge.connect("timeout", _on_timer_timeout)
 	add_child(charge)
@@ -87,6 +88,7 @@ func attack_1():
 	time_left = charge.time_left
 
 func attack_2():
+	test_kill = true
 	charge = Timer.new()
 	charge.connect("timeout", _on_timer_timeout)
 	add_child(charge)
@@ -99,6 +101,7 @@ func attack_2():
 	battleInterface.enemy_block.atb.max_value = charge.wait_time
 	time_left = charge.time_left
 func attack_3():
+	test_kill = true
 	charge = Timer.new()
 	charge.connect("timeout", _on_timer_timeout)
 	add_child(charge)
