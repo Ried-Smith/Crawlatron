@@ -203,6 +203,12 @@ func defaultSkillsAndWeaps():
 	weap1.charge_time = 4
 	weap1.charge_time = 6
 	weap1.charge_time = 8
+
+func end_fight():
+	if battleInterface.is_visible():
+		battleInterface.hide()
+		fighting  = false
+
 	
 func fight():
 	var attack_num = 0

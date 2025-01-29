@@ -38,7 +38,7 @@ func _process(delta: float) -> void:
 func fight():
 	var attack_num = 0
 	if(!alive):
-		#TODO: Climb tree get player, set up function for fight end
+		get_parent().get_parent().player.end_fight()
 		get_parent().queue_free()
 		charge = null
 		pass

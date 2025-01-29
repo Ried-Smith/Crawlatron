@@ -1,9 +1,9 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c71yladfjhgud"]
 
-[ext_resource type="Texture2D" uid="uid://1v12r5n8pjpq" path="res://Visual Resources/TEST-TILES_03.png" id="1_k1si5"]
+[ext_resource type="Texture2D" uid="uid://dganjk2xiv4e6" path="res://Visual Resources/Tiles/TEST-TILES_04.png" id="1_gan3p"]
 
 [resource]
 specular_mode = 2
-albedo_texture = ExtResource("1_k1si5")
+albedo_texture = ExtResource("1_gan3p")
 metallic_specular = 0.0
 texture_filter = 0
