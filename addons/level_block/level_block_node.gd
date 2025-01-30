@@ -103,23 +103,23 @@ func refresh():
 
 func update_faces(cell_list,cell_type) -> void:
 	var my_grid_pos = Vector2i(position.x/Globals.GRID_SIZE, position.z/Globals.GRID_SIZE)
-	match cell_type: 
-		0:
-			#default
-			bottom_face = 7
-		1:
-			#enemy
-			bottom_face = 6
-		2: 
-			#light
-			pass
-		3:
-			#Secret Wall
-			pass
-		4: 
-			#door
-			top_face = 6
-			bottom_face = 6
+	#match cell_type: 
+		#0:
+			##default
+			#bottom_face = 7
+		#1:
+			##enemy
+			#pass
+		#2: 
+			##light
+			#pass
+		#3:
+			##Secret Wall
+			#pass
+		#4: 
+			#
+			#bottom_face = 6
+			#top_face = 6
 	if cell_list.has(my_grid_pos + Vector2i.RIGHT):
 		east_face = -1
 	if cell_list.has(my_grid_pos + Vector2i.LEFT):

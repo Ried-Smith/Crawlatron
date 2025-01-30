@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bnfubjo7tvmfc"
+path="res://.godot/imported/boom_shakalaka.wav-ca6352f1b037c942617ada7f12988fea.sample"
+
+[deps]
+
+source_file="res://Audio Resources/boom_shakalaka.wav"
+dest_files=["res://.godot/imported/boom_shakalaka.wav-ca6352f1b037c942617ada7f12988fea.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

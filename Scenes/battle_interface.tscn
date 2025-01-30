@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://d305w0i45tfxw" path="res://Visual Resources/Artboard_9.png" id="2_hnxxf"]
 [ext_resource type="PackedScene" uid="uid://ce633u7qw6cby" path="res://Scenes/attack_bar.tscn" id="2_iawlf"]
 [ext_resource type="PackedScene" uid="uid://ctkrrygcrhpc3" path="res://Scenes/enemy_block.tscn" id="3_lpuqo"]
-[ext_resource type="PackedScene" path="res://Scenes/player_block.tscn" id="4_8wy57"]
+[ext_resource type="PackedScene" uid="uid://cjca2slnjiojl" path="res://Scenes/player_block.tscn" id="4_8wy57"]
 
 [node name="BattleInterface" type="Control"]
 layout_mode = 3
@@ -64,7 +64,7 @@ layout_mode = 0
 theme_override_constants/separation = 57
 script = ExtResource("1_rltdg")
 
-[node name="Attack Bar" parent="HUD" instance=ExtResource("2_iawlf")]
+[node name="ATB1" parent="HUD" instance=ExtResource("2_iawlf")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -75,7 +75,7 @@ offset_right = -1.0
 offset_bottom = -90.0
 grow_vertical = 0
 
-[node name="Attack Bar2" parent="HUD" instance=ExtResource("2_iawlf")]
+[node name="ATB2" parent="HUD" instance=ExtResource("2_iawlf")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.382
@@ -88,20 +88,20 @@ offset_right = -126.18
 offset_bottom = -90.0
 grow_vertical = 0
 
-[node name="Attack Bar3" parent="HUD" instance=ExtResource("2_iawlf")]
+[node name="ATB3" parent="HUD" instance=ExtResource("2_iawlf")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.632
 anchor_top = 1.0
 anchor_right = 0.632
 anchor_bottom = 1.0
-offset_left = -124.68
-offset_top = -89.0
-offset_right = -124.68
-offset_bottom = -89.0
+offset_left = -118.68
+offset_top = -89.0001
+offset_right = -118.68
+offset_bottom = -89.0001
 grow_vertical = 0
 
-[node name="Attack Bar4" parent="HUD" instance=ExtResource("2_iawlf")]
+[node name="ATB4" parent="HUD" instance=ExtResource("2_iawlf")]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -126,4 +126,3 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("2_hnxxf")
 expand_mode = 1
-metadata/_edit_lock_ = true

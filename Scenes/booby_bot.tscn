@@ -9,35 +9,36 @@ size = Vector3(1, 1.94974, 1.40222)
 [node name="BoobyBot" type="Node3D"]
 
 [node name="BoobyBot-Colored" parent="." instance=ExtResource("1_c7hxj")]
-transform = Transform3D(-0.22, 0, 1.9233e-08, 0, 0.22, 0, -1.9233e-08, 0, -0.22, 0, 0, 0.360366)
+transform = Transform3D(-0.22, 0, 1.9233e-08, 0, 0.22, 0, -1.9233e-08, 0, -0.22, 0, -1, 0.360366)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.178058, 0.907153, 0.738022)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.178058, -0.092847, 0.738022)
 light_color = Color(1, 0.215847, 0.720286, 1)
 omni_range = 0.365
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.186056, 0.907153, 0.738022)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.186056, -0.092847, 0.738022)
 light_color = Color(1, 0.215847, 0.720286, 1)
 omni_range = 0.365
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12109, 0.293705, 0.693876)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12109, -0.706295, 0.693876)
 omni_range = 0.435971
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21576, -0.0568742, 0.693876)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21576, -1.05687, 0.693876)
 omni_range = 0.435971
 
 [node name="OmniLight3D5" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1685, 0.322432, 0.733652)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1685, -0.677568, 0.733652)
 omni_range = 0.435971
 
 [node name="OmniLight3D6" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.203139, -0.0342602, 0.693876)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.203139, -1.03426, 0.693876)
 omni_range = 0.435971
 
 [node name="BoobyBot_Hitbox" type="RigidBody3D" parent="."]
+collision_layer = 4
 script = ExtResource("2_qav4u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BoobyBot_Hitbox"]

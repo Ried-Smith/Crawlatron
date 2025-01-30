@@ -131,7 +131,7 @@ func _on_death():
 	inventoyUi.ItemDrop.show()
 	# put item in slot
 	# once item placed, hide item spawner
-	# 
+	pass
 
 func _on_timer_timeout():
 	if(test_kill):
