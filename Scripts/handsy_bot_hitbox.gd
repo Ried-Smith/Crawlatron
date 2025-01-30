@@ -33,8 +33,7 @@ func _process(delta: float) -> void:
 		time_left = charge.time_left
 		update_bars()
 	
-	if Input.is_action_just_pressed("testinput"):
-		_on_death()
+
 	
 	
 func fight():
@@ -126,12 +125,7 @@ func update_bars():
 	battleInterface.enemy_block.shield.value = tbShield
 	battleInterface.enemy_block.atb.value = time_left
 	
-func _on_death():
-	# item spawner show
-	inventoyUi.ItemDrop.show()
-	# put item in slot
-	# once item placed, hide item spawner
-	pass
+
 
 func _on_timer_timeout():
 	if(test_kill):

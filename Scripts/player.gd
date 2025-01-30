@@ -12,9 +12,13 @@ extends Node3D
 @onready var botkill2 = $botkill2
 @onready var botkill3 = $botkill3
 @onready var inventoryMenu = $"../Inventory"
+@onready var itemInventory = $"../Inventory/ItemInventory"
+@onready var equipMenu = $"../Inventory/ColorRect"
+@onready var dropSlot = $"../Inventory/ItemDrop"
 @onready var battleInterface = $"../BattleInterface"
 @onready var pilot = $pilot
 
+@onready var playerVariables = preload("res://Scenes/PlayerVariables.tscn")
 
 
 
@@ -29,6 +33,7 @@ var playerHealth = 100
 var playerHealthMax = 100
 var playerShield = 100
 var playerShieldMax = 100
+
 
 #TODO: dont let the number of skills equipped from items exceed 6
 
@@ -156,23 +161,24 @@ func _physics_process(delta: float) -> void:
 		get_parent().clear_enemies()
 
 
+
 	if Input.is_action_just_pressed("Inventory"):
 		if !inventoryMenu.is_visible():
 			inventoryMenu.show()
-
+			equipMenu.show()
+			itemInventory.show()
+			dropSlot.hide()
+			
 		else:
 			inventoryMenu.hide()
-
+			
 	if Input.is_action_just_pressed("Attack") and front_ray.is_colliding():
 		var thing_hit = front_ray.get_collider()
 		if "collision_layer" not in thing_hit:
 			print("wall")
 		else:
 			hit(thing_hit)
-	
-	if Input.is_action_just_pressed("testinput"):
-		pass
-		inventoryMenu._key_check()
+
 
 func hit(hit_object):
 	match hit_object.collision_layer:
@@ -181,8 +187,8 @@ func hit(hit_object):
 		2: #doors
 			hit_object.open_door()
 			#TODO: open door function should check if player has 'key' in inventory, if not, fuck you
-			#if inventoryMenu._key_check() == true:
-				#hit_object.open_door()
+			if inventoryMenu._key_check() == true:
+				hit_object.open_door()
 			#else:
 				#print("no key detected")
 		4: #enemy
@@ -262,7 +268,16 @@ func defaultSkillsAndWeaps():
 	weap3.charge_time = 6
 	weap4.charge_time = 8
 
-func end_fight():
+func end_fight(botType):
+	match botType:
+		# 1=crab, 2=tesla, 3=bot with big mommy milkers AWOOGA
+		1:
+			inventoryMenu._on_death(1)
+		2:
+			inventoryMenu._on_death(2)
+		3:
+			inventoryMenu._on_death(3)
+			
 	match randi()%3:
 		0:
 			botkill1.play()
