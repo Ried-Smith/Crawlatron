@@ -55,23 +55,30 @@ var skill6
 var skills = [skill1,skill2,skill3,skill4,skill5,skill6]
 
 var tween
+var current_enemy
 var fighting = false
+var dead = false
 
 var charge1 
 var charge2
 var charge3
 var charge4
-var time_left1
-var time_left2
-var time_left3
-var time_left4
+var time_left1 = 0
+var time_left2 = 0
+var time_left3 = 0
+var time_left4 = 0
 
 func _ready() -> void:
 	defaultSkillsAndWeaps()
 
 func _process(delta: float) -> void:
-	updateDMG()
-
+	if(fighting and !dead):
+		time_left1 = charge1.time_left
+		time_left2 = charge2.time_left
+		time_left3 = charge3.time_left
+		time_left4 = charge4.time_left
+		update_bars()
+	if(playerHealth<=0): dead = true
 
 func _physics_process(delta: float) -> void:
 	if tween is Tween:
@@ -172,20 +179,25 @@ func hit(hit_object):
 		1: #walls
 			pass
 		2: #doors
+			hit_object.open_door()
 			#TODO: open door function should check if player has 'key' in inventory, if not, fuck you
-			if inventoryMenu._key_check() == true:
-				hit_object.open_door()
+			#if inventoryMenu._key_check() == true:
+				#hit_object.open_door()
 			#else:
 				#print("no key detected")
 		4: #enemy
 			if !battleInterface.is_visible():
 				battleInterface.show()
 				fighting  = true
+				current_enemy = hit_object
 				hit_object.fight_ready()
 				setWeapons()
 				setSkills()
 				setStats()
-				attack()
+				attack1()
+				attack2()
+				attack3()
+				attack4()
 		8: #interactive switch or pickup
 			pass
 		16:
@@ -213,9 +225,15 @@ func setSkills():
 func setStats():
 	battleInterface.playerBlock.healthBar.max_value = playerHealthMax
 	battleInterface.playerBlock.shieldBar.max_value = playerShieldMax
-func updateDMG():
+	
+func update_bars():
 	battleInterface.playerBlock.healthBar.value = playerHealth
 	battleInterface.playerBlock.shieldBar.value = playerShield
+	battleInterface.ATB1.atb.value = time_left1
+	battleInterface.ATB2.atb.value = time_left2
+	battleInterface.ATB3.atb.value = time_left3
+	battleInterface.ATB4.atb.value = time_left4
+	
 
 
 func defaultSkillsAndWeaps():
@@ -240,9 +258,9 @@ func defaultSkillsAndWeaps():
 	weap4.dmg_max = 15
 	
 	weap1.charge_time = 2
-	weap1.charge_time = 4
-	weap1.charge_time = 6
-	weap1.charge_time = 8
+	weap2.charge_time = 4
+	weap3.charge_time = 6
+	weap4.charge_time = 8
 
 func end_fight():
 	match randi()%3:
@@ -256,22 +274,97 @@ func end_fight():
 		battleInterface.hide()
 		fighting  = false
 
-func attack():
-	var charge1 = Timer.new()
-	var charge2 = Timer.new()
-	var charge3 = Timer.new()
-	var charge4 = Timer.new()
-	
+func attack1():
+	battleInterface.ATB1.weapon_name.text = "[center]"+weap2.w_name+"[/center]"
+	charge1 = Timer.new()
+	add_child(charge1)
 	charge1.wait_time = weap1.charge_time
-	charge2.wait_time = weap2.charge_time
-	charge3.wait_time = weap3.charge_time
-	charge4.wait_time = weap4.charge_time
-	
-	battleInterface.ATB1.weapon_name.text = "[center]"+weap1.w_name+"[/center]"
-	battleInterface.ATB2.weapon_name.text = "[center]"+weap2.w_name+"[/center]"
-	battleInterface.ATB3.weapon_name.text = "[center]"+weap3.w_name+"[/center]"
-	battleInterface.ATB4.weapon_name.text = "[center]"+weap4.w_name+"[/center]"
+	battleInterface.ATB1.atb.max_value = charge1.wait_time
+	charge1.connect("timeout",_weap1_timeout)
+	charge1.one_shot = true
+	charge1.start()
 
+func attack2():
+	battleInterface.ATB2.weapon_name.text = "[center]"+weap2.w_name+"[/center]"
+	charge2 = Timer.new()
+	add_child(charge2)
+	charge2.wait_time = weap2.charge_time
+	battleInterface.ATB2.atb.max_value = charge2.wait_time
+	charge2.connect("timeout",_weap2_timeout)
+	charge2.one_shot = true
+	charge2.start()
+
+func attack3():
+	battleInterface.ATB3.weapon_name.text = "[center]"+weap3.w_name+"[/center]"
+	charge3 = Timer.new()
+	add_child(charge3)
+	charge3.wait_time = weap3.charge_time
+	battleInterface.ATB3.atb.max_value = charge3.wait_time
+	charge3.connect("timeout",_weap3_timeout)
+	charge3.one_shot = true
+	charge3.start()
+
+func attack4():
+	battleInterface.ATB4.weapon_name.text = "[center]"+weap4.w_name+"[/center]"
+	charge4 = Timer.new()
+	add_child(charge4)
+	charge4.wait_time = weap4.charge_time
+	battleInterface.ATB4.atb.max_value = charge4.wait_time
+	charge4.connect("timeout",_weap4_timeout)
+	charge4.one_shot = true
+	charge4.start()
+	
 func _hide_pilot():
 	if pilot.is_visible():
 		pilot.hide()
+
+func _weap1_timeout():
+	if(fighting and !dead):
+		remove_child(charge1)
+		dmg_mod(weap1.type,randi()%weap1.dmg_max+weap1.dmg_min+1)
+		attack1()
+func _weap2_timeout():
+	if(fighting and !dead):
+		remove_child(charge2)
+		dmg_mod(weap2.type,randi()%weap2.dmg_max+weap2.dmg_min+1)
+		attack2()
+func _weap3_timeout():
+	if(fighting and !dead):
+		remove_child(charge3)
+		dmg_mod(weap3.type,randi()%weap3.dmg_max+weap3.dmg_min+1)
+		attack3()
+func _weap4_timeout():
+	if(fighting and !dead):
+		remove_child(charge4)
+		dmg_mod(weap4.type,randi()%weap4.dmg_max+weap4.dmg_min+1)
+		attack4()
+
+func dmg_mod(TYPE,dmg):
+	var dmg_shield
+	var dmg_health
+	var enemy_shield = current_enemy.tbShield
+	var enemy_health = current_enemy.tbHealth
+	
+	match TYPE:
+		FIRE:
+			dmg_shield = round(dmg * .25)
+			dmg_health = round(dmg * .75)
+		ELEC:
+			dmg_shield = round(dmg * .75)
+			dmg_health = round(dmg * .25)
+		PHYS:
+			dmg_shield = dmg
+			dmg_health = 0
+		WIERD:
+			dmg_shield = round(dmg * .50)
+			dmg_health = round(dmg * .50)
+	
+	if(enemy_shield<=dmg_shield):
+		dmg_shield-=enemy_shield
+		dmg_health+=dmg_shield
+		dmg_shield = 0
+		enemy_shield = 0
+	enemy_shield -= dmg_shield
+	enemy_health -= dmg_health
+	current_enemy.tbHealth = enemy_health
+	current_enemy.tbShield = enemy_shield

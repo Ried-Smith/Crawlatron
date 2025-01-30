@@ -32,16 +32,15 @@ func _process(delta: float) -> void:
 	if (fight_started): 
 		time_left = charge.time_left
 		update_bars()
-		
-	
-	
-func fight():
-	var attack_num = 0
-	if(!alive):
+	if(tbHealth<=0):
 		get_parent().get_parent().player.end_fight()
 		get_parent().queue_free()
 		charge = null
-		pass
+		
+	
+func fight():
+	var attack_num = 0
+	
 	match randi()%4:
 		0:
 			attack_1()
@@ -85,7 +84,7 @@ func attack_1():
 	dmg = 10
 	type = PHYS
 	battleInterface.enemy_block.atb.max_value = charge.wait_time
-	time_left = charge.time_left
+	#time_left = charge.time_left
 
 func attack_2():
 	test_kill = true
@@ -99,7 +98,7 @@ func attack_2():
 	dmg = 10
 	type = ELEC
 	battleInterface.enemy_block.atb.max_value = charge.wait_time
-	time_left = charge.time_left
+	#time_left = charge.time_left
 func attack_3():
 	test_kill = true
 	charge = Timer.new()
@@ -112,7 +111,7 @@ func attack_3():
 	dmg = 35
 	type = ELEC
 	battleInterface.enemy_block.atb.max_value = charge.wait_time
-	time_left = charge.time_left
+	#time_left = charge.time_left
 func attack_4():
 	test_kill = true
 	charge = Timer.new()
@@ -125,7 +124,7 @@ func attack_4():
 	dmg = 50
 	type = ELEC
 	battleInterface.enemy_block.atb.max_value = charge.wait_time
-	time_left = charge.time_left
+	#time_left = charge.time_left
 
 func update_bars():
 	battleInterface.enemy_block.health.value = tbHealth
@@ -133,6 +132,4 @@ func update_bars():
 	battleInterface.enemy_block.atb.value = time_left
 
 func _on_timer_timeout():
-	if(test_kill):
-		alive = false
 	fight()
