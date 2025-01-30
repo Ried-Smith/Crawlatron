@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://addons/level_block/level_block_node.gd" id="3_7av3g"]
 [ext_resource type="Material" uid="uid://c71yladfjhgud" path="res://addons/level_block/default_material.tres" id="4_rdskg"]
 [ext_resource type="PackedScene" uid="uid://di7124re2rl7d" path="res://Scenes/battle_interface.tscn" id="5_8vjrb"]
-[ext_resource type="Texture2D" uid="uid://1v12r5n8pjpq" path="res://Visual Resources/TEST-TILES_03.png" id="5_bbh48"]
+[ext_resource type="Texture2D" uid="uid://1v12r5n8pjpq" path="res://Visual Resources/Tiles/TEST-TILES_03.png" id="5_bbh48"]
 
 [node name="Teslabot_Fight" type="Node3D"]
 

@@ -1,9 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://u0oiusp2vfsx"]
+[gd_scene load_steps=13 format=3 uid="uid://u0oiusp2vfsx"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_85bbh"]
 [ext_resource type="Script" path="res://Scripts/Globals.gd" id="2_5o8fa"]
 [ext_resource type="AudioStream" uid="uid://b3akyfv5xakqt" path="res://Audio Resources/MechStep.wav" id="2_wifbn"]
 [ext_resource type="AudioStream" uid="uid://7frfcri37nwt" path="res://Audio Resources/MechTurn.wav" id="3_l5af0"]
+[ext_resource type="AudioStream" uid="uid://b1ay24ceyy7s2" path="res://Audio Resources/damn_still_gotta_kill_those_bots.wav" id="5_hu3rf"]
+[ext_resource type="AudioStream" uid="uid://bwkahmx4xk8qy" path="res://Audio Resources/oh_yeah_another_dead_bot.wav" id="6_k3sn4"]
+[ext_resource type="AudioStream" uid="uid://bnfubjo7tvmfc" path="res://Audio Resources/boom_shakalaka.wav" id="7_fbsbt"]
+[ext_resource type="AudioStream" uid="uid://cnhxacpblwdsg" path="res://Audio Resources/rust_in_pieces.wav" id="8_jk084"]
+[ext_resource type="Texture2D" uid="uid://t7m8feh5yywe" path="res://Visual Resources/pilot.jpg" id="9_2mkfa"]
 
 [sub_resource type="Animation" id="Animation_5pn70"]
 length = 0.001
@@ -53,19 +58,19 @@ fov = 90.0
 
 [node name="RayForward" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -2)
-collision_mask = 15
+collision_mask = 31
 
 [node name="RayBack" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, 2)
-collision_mask = 15
+collision_mask = 31
 
 [node name="RayRight" type="RayCast3D" parent="."]
 target_position = Vector3(2, 0, 0)
-collision_mask = 15
+collision_mask = 31
 
 [node name="RayLeft" type="RayCast3D" parent="."]
 target_position = Vector3(-2, 0, 0)
-collision_mask = 15
+collision_mask = 31
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 visible = false
@@ -94,3 +99,40 @@ stream = ExtResource("2_wifbn")
 stream = ExtResource("3_l5af0")
 
 [node name="WallHit" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Cant leave" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_hu3rf")
+volume_db = -9.3
+
+[node name="botkill1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_k3sn4")
+volume_db = -9.3
+
+[node name="botkill2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_fbsbt")
+volume_db = -9.3
+
+[node name="botkill3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_jk084")
+volume_db = -9.3
+
+[node name="pilot" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchor_right = 1.002
+anchor_bottom = 1.0
+offset_right = -0.304077
+offset_bottom = -1.0
+
+[node name="TextureRect" type="TextureRect" parent="pilot"]
+modulate = Color(1, 1, 1, 0.533333)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -2.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_2mkfa")
+expand_mode = 1
