@@ -165,6 +165,7 @@ func _physics_process(delta: float) -> void:
 		get_parent().clear_enemies()
 
 
+
 	if Input.is_action_just_pressed("Inventory"):
 		if !inventoryMenu.is_visible():
 			inventoryMenu.show()

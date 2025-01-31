@@ -38,7 +38,9 @@ func _ready():
 	for i in range(32):
 		createSlot()
 		
+
 	inventoryMenu.hide()
+
 	
 func _process(delta):
 	
