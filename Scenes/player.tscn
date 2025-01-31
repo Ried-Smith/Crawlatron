@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://u0oiusp2vfsx"]
+[gd_scene load_steps=14 format=3 uid="uid://u0oiusp2vfsx"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_85bbh"]
 [ext_resource type="Script" path="res://Scripts/Globals.gd" id="2_5o8fa"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://bnfubjo7tvmfc" path="res://Audio Resources/boom_shakalaka.wav" id="7_fbsbt"]
 [ext_resource type="AudioStream" uid="uid://cnhxacpblwdsg" path="res://Audio Resources/rust_in_pieces.wav" id="8_jk084"]
 [ext_resource type="Texture2D" uid="uid://t7m8feh5yywe" path="res://Visual Resources/pilot.jpg" id="9_2mkfa"]
+[ext_resource type="Script" path="res://Scripts/item_data.gd" id="10_x6u02"]
 
 [sub_resource type="Animation" id="Animation_5pn70"]
 length = 0.001
@@ -134,3 +135,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_2mkfa")
 expand_mode = 1
+
+[node name="weapon_manager" type="Node" parent="."]
+script = ExtResource("10_x6u02")

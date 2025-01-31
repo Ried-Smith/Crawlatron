@@ -22,8 +22,6 @@ extends Control
 @onready var keySlot = $KeyCheck/TextureRect/TextureRect
 @onready var keyCheck = $KeyCheck
 
-
-
 var gridArray = []
 var itemHeld = null
 var currentSlot = null
@@ -36,7 +34,6 @@ func _ready():
 		createSlot()
 	inventoryMenu.hide()
 
-	
 func _process(delta):
 	
 		if itemHeld:

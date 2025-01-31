@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ddxrdcnua57ye"]
+[gd_scene load_steps=15 format=3 uid="uid://ddxrdcnua57ye"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_xfgve"]
 [ext_resource type="PackedScene" uid="uid://c6fuu1lurnocw" path="res://Scenes/map.tscn" id="2_usn4h"]
@@ -10,6 +10,10 @@
 [ext_resource type="Script" path="res://Scripts/game_over_screen.gd" id="8_7kfb2"]
 [ext_resource type="Texture2D" uid="uid://bebxy2cfvy0d2" path="res://Visual Resources/game_over.png" id="9_imvhn"]
 [ext_resource type="Texture2D" uid="uid://bxu77gkws81ho" path="res://Visual Resources/restart.png" id="10_5ef8o"]
+[ext_resource type="Texture2D" uid="uid://5ng086kfn7xa" path="res://Visual Resources/panel_2.png" id="11_4qgd7"]
+[ext_resource type="FontFile" uid="uid://coad5ufcmo1ka" path="res://Visual Resources/Fonts/Black_Ops_One (1)/BlackOpsOne-Regular.ttf" id="12_47mw4"]
+[ext_resource type="Texture2D" uid="uid://t7m8feh5yywe" path="res://Visual Resources/pilot.jpg" id="13_2ojfd"]
+[ext_resource type="Texture2D" uid="uid://dsak6ap7uhl83" path="res://Visual Resources/PlayerSprite.png" id="14_1csno"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_xfgve")
@@ -30,6 +34,7 @@ visible = false
 visible = false
 
 [node name="gameOverScreen" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,3 +67,66 @@ grow_vertical = 2
 scale = Vector2(0.68, 0.68)
 focus_mode = 0
 icon = ExtResource("10_5ef8o")
+
+[node name="victory" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="victory"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1180.0
+offset_bottom = 663.0
+texture = ExtResource("11_4qgd7")
+expand_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="victory/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -558.5
+offset_top = -263.5
+offset_right = -8.50006
+offset_bottom = -29.06
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.94, 1.94)
+theme_override_fonts/normal_font = ExtResource("12_47mw4")
+bbcode_enabled = true
+text = "[center]YOU WIN!
+
+go play more jam games[/center]"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="victory/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -486.5
+offset_top = 164.5
+offset_right = -69.5
+offset_bottom = 213.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.94, 1.94)
+theme_override_fonts/normal_font = ExtResource("12_47mw4")
+bbcode_enabled = true
+text = "[center]From: ElektroLites, FakeLawyer, M1ST3R0NE, genevievezrogers[/center]"
+
+[node name="Pilot" type="Sprite2D" parent="victory/TextureRect"]
+position = Vector2(178, 301)
+scale = Vector2(1.875, 1.75781)
+texture = ExtResource("13_2ojfd")
+
+[node name="PlayerSprite" type="Sprite2D" parent="victory/TextureRect"]
+position = Vector2(955, 386)
+texture = ExtResource("14_1csno")
