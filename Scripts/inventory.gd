@@ -25,8 +25,6 @@ extends Control
 
 @onready var itemDropSlot = $ItemDrop/TextureRect/TextureRect/ItemDropSlot
 
-
-
 var gridArray = []
 var itemHeld = null
 var currentSlot = null
@@ -39,7 +37,6 @@ func _ready():
 		createSlot()
 		
 	inventoryMenu.hide()
-	
 func _process(delta):
 	
 		if itemHeld:

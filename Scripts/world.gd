@@ -9,16 +9,18 @@ const Cell_WL = preload("res://Scenes/deco_cell_light.tscn")
 const Enemy_Tesla = preload("res://Scenes/TelsaBot.tscn")
 const Enemy_Boob = preload("res://Scenes/booby_bot.tscn")
 const Enemy_Handsy = preload("res://Scenes/HandyBot.tscn")
+const Boss = preload("res://Scenes/boss_bot.tscn")
 const door_block = preload("res://Scenes/doorblock.tscn")
 const map1 = preload("res://Scenes/map.tscn")
 const map2 = preload("res://Scenes/map_2.tscn")
 const map3 = preload("res://Scenes/map_3.tscn")
+const mapBoss = preload("res://Scenes/map_boss.tscn")
 const player_new = preload("res://Scenes/player.tscn")
 
 var Cells = []
 var Types = [0]
 var Enemies = []
-var maps = [map1,map2]
+var maps = [map2,map3,map1,mapBoss]
 
 @export var Map: PackedScene
 @export var Globals: Script
@@ -43,6 +45,7 @@ func generate_map(map_name):
 	var start = 7
 	var exit = 8
 	var light_wall = 9
+	var BOSS = 10
 	
 	var j = 0
 	for tile in used_tiles:
@@ -91,6 +94,13 @@ func generate_map(map_name):
 			light_wall:
 				cell = Cell_WL.instantiate()
 				cell.position=Vector3(tile.x*Globals.GRID_SIZE,0,tile.y*Globals.GRID_SIZE)
+			BOSS:
+				cell = Cell.instantiate()
+				cell.position=Vector3(tile.x*Globals.GRID_SIZE,0,tile.y*Globals.GRID_SIZE)
+				var new_enemy = Boss.instantiate()
+				add_child(new_enemy)
+				Enemies.append(new_enemy)
+				new_enemy.position=Vector3(tile.x*Globals.GRID_SIZE, 0,tile.y*Globals.GRID_SIZE)
 		add_child(cell)
 		Cells.append(cell)
 		Types.append(tilemap.get_cell_source_id(tile))
@@ -116,12 +126,12 @@ func _ready() -> void:
 	
 func restart():
 	clear_enemies()
-	remove_child(player)
-	player = player_new.instantiate()
-	add_child(player)
+	player.battleReset()
 	clear_map()
 	
 func next_level():
 	clear_enemies()
 	map_index+=1
+	current_map = maps[map_index]
 	clear_map()
+	

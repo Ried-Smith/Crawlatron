@@ -145,7 +145,6 @@ func dmg_mod(TYPE,dmg):
 	var dmg_health
 	var enemy_shield = current_enemy.playerShield
 	var enemy_health = current_enemy.playerHealth
-	dmg+=1500000
 	match TYPE:
 		FIRE:
 			dmg_shield = round(dmg * .25)

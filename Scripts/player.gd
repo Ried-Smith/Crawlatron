@@ -18,8 +18,8 @@ extends Node3D
 @onready var battleInterface = $"../BattleInterface"
 @onready var gameOver = $"../gameOverScreen"
 @onready var pilot = $pilot
-
-@onready var playerVariables = preload("res://Scenes/PlayerVariables.tscn")
+@onready var weapon_man = $weapon_manager
+@onready var victory = $"../victory"
 
 
 
@@ -35,15 +35,10 @@ var playerHealthMax = 100
 var playerShield = 100
 var playerShieldMax = 100
 
-
-#TODO: dont let the number of skills equipped from items exceed 6
-
-#TODO: dont let the number of weapons equipped from items exceed 4
-
-#TODO: put the inventory equipment here
-#TODO: when changing inv call update func
-var equip = []
-
+@onready var leftArm = inventoryMenu.leftArmEquipSlot
+@onready var rightArm = inventoryMenu.rightArmEquipSlot
+@onready var leftLeg = inventoryMenu.leftLegEquipSlot
+@onready var rightLeg = inventoryMenu.rightLegEquipSlot
 enum {FIRE,ELEC,PHYS,WIERD}
 
 var weap1 = weapon.new()
@@ -51,14 +46,8 @@ var weap2 = weapon.new()
 var weap3 = weapon.new()
 var weap4 = weapon.new()
 var weapons  = [weap1,weap2,weap3,weap4]
+var default_weapon = weapon.new()
 
-var skill1
-var skill2
-var skill3
-var skill4
-var skill5
-var skill6
-var skills = [skill1,skill2,skill3,skill4,skill5,skill6]
 
 var tween
 var current_enemy
@@ -76,15 +65,23 @@ var time_left3 = 0
 var time_left4 = 0
 
 func _ready() -> void:
-	defaultSkillsAndWeaps()
+	default_weapon.w_name = "Big weak punch"
+	default_weapon.charge_time = 2
+	default_weapon.dmg_max = 40
+	default_weapon.dmg_min = 1
+	default_weapon.type = PHYS
+	
 
 func _process(delta: float) -> void:
 	if(fighting and !dead):
 		time_left1 = charge1.time_left
-		time_left2 = charge2.time_left
-		time_left3 = charge3.time_left
-		time_left4 = charge4.time_left
-		update_bars()
+		if(weap2.w_name != "NONE"):
+			time_left2 = charge2.time_left
+		if(weap3.w_name != "NONE"):
+			time_left3 = charge3.time_left
+		if(weap4.w_name != "NONE"):
+			time_left4 = charge4.time_left
+	update_bars()
 	if(playerHealth<=0): 
 		dead = true
 
@@ -149,22 +146,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			tween = create_tween()
 		tween.tween_property(self, "transform", transform.rotated_local(Vector3.UP, -PI/2), MOVE_SPEED)
-
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	if Input.is_key_label_pressed(KEY_K) and not fighting:
-		get_parent().clear_enemies()
-
-
+	
 	if Input.is_action_just_pressed("Inventory"):
 		if !inventoryMenu.is_visible():
 			inventoryMenu.show()
@@ -181,7 +163,8 @@ func _physics_process(delta: float) -> void:
 			print("wall")
 		else:
 			hit(thing_hit)
-
+	if Input.is_key_label_pressed(KEY_L):
+		get_parent().clear_enemies()
 
 func hit(hit_object):
 	match hit_object.collision_layer:
@@ -201,7 +184,6 @@ func hit(hit_object):
 				current_enemy = hit_object
 				hit_object.fight_ready()
 				setWeapons()
-				setSkills()
 				setStats()
 				attack1()
 				attack2()
@@ -211,7 +193,7 @@ func hit(hit_object):
 			hit_object.eat_totem()
 		16:
 			if (get_parent().Enemies.size()) <= 0:
-				get_parent().clear_map()
+				get_parent().next_level()
 			else:
 				pilot.show()
 				cant_leave1.play()
@@ -219,18 +201,28 @@ func hit(hit_object):
 				
 
 func setWeapons():
-	for item in equip:
-		if item.is_weapon == true:
-			for i in weapons:
-				if i.taken != false:
-					weapons[i] = item
+	if(PlayerVariables.leftArmSlot == null): 
+		weap1.w_name = default_weapon.w_name
+		weap1.dmg_max = default_weapon.dmg_max
+		weap1.dmg_min = default_weapon.dmg_min
+		weap1.type = default_weapon.type
+		weap1.charge_time = default_weapon.charge_time
+	else:
+		weap1 = weapon_man.get_item(PlayerVariables.leftArmSlot.itemID)
+	if(PlayerVariables.rightArmSlot != null):
+		weap2 = weapon_man.get_item(PlayerVariables.rightArmSlot.itemID)
+	else:
+		weap2 = weapon_man.get_item(-1)
+	if(PlayerVariables.leftLegSlot != null):
+		weap3 = weapon_man.get_item(PlayerVariables.leftLegSlot.itemID)
+	else:
+		weap3 = weapon_man.get_item(-1)
+	if(PlayerVariables.rightLegSlot != null):
+		weap4 = weapon_man.get_item(PlayerVariables.rightLegSlot.itemID)
+	else:
+		weap4= weapon_man.get_item(-1)
 
-func setSkills():
-	for item in equip:
-		if item.has_skill == true:
-			for i in skills:
-				if i.taken != false:
-					weapons[i] = item
+
 func setStats():
 	battleInterface.playerBlock.healthBar.max_value = playerHealthMax
 	battleInterface.playerBlock.shieldBar.max_value = playerShieldMax
@@ -294,7 +286,7 @@ func end_fight(botType):
 	playerShield = playerShieldMax
 
 func attack1():
-	battleInterface.ATB1.weapon_name.text = "[center]"+weap2.w_name+"[/center]"
+	battleInterface.ATB1.weapon_name.text = "[center]"+weap1.w_name+"[/center]"
 	charge1 = Timer.new()
 	add_child(charge1)
 	charge1.wait_time = weap1.charge_time
@@ -305,6 +297,10 @@ func attack1():
 
 func attack2():
 	battleInterface.ATB2.weapon_name.text = "[center]"+weap2.w_name+"[/center]"
+	if(weap2.w_name != "NONE"):
+		pass
+	else:
+		return
 	charge2 = Timer.new()
 	add_child(charge2)
 	charge2.wait_time = weap2.charge_time
@@ -315,6 +311,10 @@ func attack2():
 
 func attack3():
 	battleInterface.ATB3.weapon_name.text = "[center]"+weap3.w_name+"[/center]"
+	if(weap3.w_name != "NONE"):
+		pass
+	else:
+		return
 	charge3 = Timer.new()
 	add_child(charge3)
 	charge3.wait_time = weap3.charge_time
@@ -322,9 +322,12 @@ func attack3():
 	charge3.connect("timeout",_weap3_timeout)
 	charge3.one_shot = true
 	charge3.start()
-
 func attack4():
 	battleInterface.ATB4.weapon_name.text = "[center]"+weap4.w_name+"[/center]"
+	if(weap4.w_name != "NONE"):
+		pass
+	else:
+		return
 	charge4 = Timer.new()
 	add_child(charge4)
 	charge4.wait_time = weap4.charge_time
@@ -389,6 +392,25 @@ func dmg_mod(TYPE,dmg):
 	current_enemy.tbShield = enemy_shield
 
 func death():
-	if(dead):
+	if(true):
 		gameOver.show()
 		battleInterface.hide()
+
+func battleReset():
+	if battleInterface.is_visible():
+		battleInterface.hide()
+	fighting  = false
+	dead = false
+	playerShield = playerShieldMax
+	playerHealth = playerHealthMax
+	if(charge1!=null):remove_child(charge1)
+	if(charge2!=null):remove_child(charge2)
+	if(charge3!=null):remove_child(charge3)
+	if(charge4!=null):remove_child(charge4)
+	update_bars()
+	
+func win():
+	inventoryMenu.hide()
+	battleInterface.hide()
+	gameOver.hide()
+	victory.show()
