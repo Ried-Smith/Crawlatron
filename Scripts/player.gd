@@ -16,6 +16,7 @@ extends Node3D
 @onready var equipMenu = $"../Inventory/ColorRect"
 @onready var dropSlot = $"../Inventory/ItemDrop"
 @onready var battleInterface = $"../BattleInterface"
+@onready var gameOver = $"../gameOverScreen"
 @onready var pilot = $pilot
 
 @onready var playerVariables = preload("res://Scenes/PlayerVariables.tscn")
@@ -63,6 +64,7 @@ var tween
 var current_enemy
 var fighting = false
 var dead = false
+var restart_debug =true
 
 var charge1 
 var charge2
@@ -83,7 +85,9 @@ func _process(delta: float) -> void:
 		time_left3 = charge3.time_left
 		time_left4 = charge4.time_left
 		update_bars()
-	if(playerHealth<=0): dead = true
+	if(playerHealth<=0): 
+		dead = true
+
 
 func _physics_process(delta: float) -> void:
 	if tween is Tween:
@@ -205,7 +209,7 @@ func hit(hit_object):
 				attack3()
 				attack4()
 		8: #interactive switch or pickup
-			pass
+			hit_object.eat_totem()
 		16:
 			if (get_parent().Enemies.size()) <= 0:
 				get_parent().clear_map()
@@ -288,6 +292,7 @@ func end_fight(botType):
 	if battleInterface.is_visible():
 		battleInterface.hide()
 		fighting  = false
+	playerShield = playerShieldMax
 
 func attack1():
 	battleInterface.ATB1.weapon_name.text = "[center]"+weap2.w_name+"[/center]"
@@ -383,3 +388,8 @@ func dmg_mod(TYPE,dmg):
 	enemy_health -= dmg_health
 	current_enemy.tbHealth = enemy_health
 	current_enemy.tbShield = enemy_shield
+
+func death():
+	if(dead):
+		gameOver.show()
+		battleInterface.hide()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://lc2fba7dn3kn"]
 
-[ext_resource type="Texture2D" uid="uid://cv5bxebdnxxmj" path="res://Visual Resources/Tiles/slotBackground.png" id="1_pm1j4"]
+[ext_resource type="Texture2D" uid="uid://cv5bxebdnxxmj" path="res://Visual Resources/slotBackground.png" id="1_pm1j4"]
 [ext_resource type="Script" path="res://Scripts/slot.gd" id="2_ge05n"]
 
 [node name="Slot" type="TextureRect"]

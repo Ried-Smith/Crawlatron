@@ -4,21 +4,29 @@ const Cell = preload("res://Scenes/testcell.tscn")
 const Cell_L = preload("res://Scenes/light_cell.tscn")
 const Cell_D = preload("res://Scenes/doorcell.tscn")
 const Cell_E = preload("res://Scenes/exit_cell.tscn")
+const Cell_H = preload("res://Scenes/heal_cell.tscn")
+const Cell_WL = preload("res://Scenes/deco_cell_light.tscn")
 const Enemy_Tesla = preload("res://Scenes/TelsaBot.tscn")
 const Enemy_Boob = preload("res://Scenes/booby_bot.tscn")
 const Enemy_Handsy = preload("res://Scenes/HandyBot.tscn")
 const door_block = preload("res://Scenes/doorblock.tscn")
 const map1 = preload("res://Scenes/map.tscn")
 const map2 = preload("res://Scenes/map_2.tscn")
+const map3 = preload("res://Scenes/map_3.tscn")
+const player_new = preload("res://Scenes/player.tscn")
 
 var Cells = []
 var Types = [0]
 var Enemies = []
+var maps = [map1,map2]
 
 @export var Map: PackedScene
 @export var Globals: Script
 @onready var battleInterface = $BattleInterface
 @onready var player = $Player
+
+var map_index = 0
+var current_map = maps[map_index]
 
 func generate_map(map_name):
 	if Map is not PackedScene: return
@@ -34,6 +42,7 @@ func generate_map(map_name):
 	var enemy_booby = 6
 	var start = 7
 	var exit = 8
+	var light_wall = 9
 	
 	var j = 0
 	for tile in used_tiles:
@@ -76,6 +85,12 @@ func generate_map(map_name):
 			exit:
 				cell = Cell_E.instantiate()
 				cell.position=Vector3(tile.x*Globals.GRID_SIZE,0,tile.y*Globals.GRID_SIZE)
+			secret_cell:
+				cell = Cell_H.instantiate()
+				cell.position=Vector3(tile.x*Globals.GRID_SIZE,0,tile.y*Globals.GRID_SIZE)
+			light_wall:
+				cell = Cell_WL.instantiate()
+				cell.position=Vector3(tile.x*Globals.GRID_SIZE,0,tile.y*Globals.GRID_SIZE)
 		add_child(cell)
 		Cells.append(cell)
 		Types.append(tilemap.get_cell_source_id(tile))
@@ -89,11 +104,24 @@ func generate_map(map_name):
 func clear_map():
 	for cell in Cells:
 		remove_child(cell)
-	generate_map(map2)
+	Cells = []
+	generate_map(current_map)
 	
 func clear_enemies():
 	for enemy in Enemies:
 		remove_child(enemy)
 	Enemies = []
 func _ready() -> void:
-	generate_map(map1)
+	generate_map(current_map)
+	
+func restart():
+	clear_enemies()
+	remove_child(player)
+	player = player_new.instantiate()
+	add_child(player)
+	clear_map()
+	
+func next_level():
+	clear_enemies()
+	map_index+=1
+	clear_map()

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/inventory.gd" id="1_lah5x"]
 [ext_resource type="Texture2D" uid="uid://d0re8fcc6rjdj" path="res://Visual Resources/Inventory background.png" id="2_t4rvb"]
-[ext_resource type="Texture2D" uid="uid://cv5bxebdnxxmj" path="res://Visual Resources/Tiles/slotBackground.png" id="3_xe1dl"]
+[ext_resource type="Texture2D" uid="uid://cv5bxebdnxxmj" path="res://Visual Resources/slotBackground.png" id="3_xe1dl"]
 [ext_resource type="Texture2D" uid="uid://d4e74gwvc7v35" path="res://Scenes/slotBackground.png" id="4_kvl75"]
 
 [node name="Inventory" type="Control"]
