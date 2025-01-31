@@ -15,6 +15,8 @@ extends Node3D
 @onready var itemInventory = $"../Inventory/ItemInventory"
 @onready var equipMenu = $"../Inventory/ColorRect"
 @onready var dropSlot = $"../Inventory/ItemDrop"
+@onready var keyCheck = $"../Inventory/KeyCheck"
+@onready var keySlot = $"../Inventory/KeyCheck/TextureRect/TextureRect"
 @onready var battleInterface = $"../BattleInterface"
 @onready var gameOver = $"../gameOverScreen"
 @onready var pilot = $pilot
@@ -41,10 +43,12 @@ var playerShieldMax = 100
 @onready var rightLeg = inventoryMenu.rightLegEquipSlot
 enum {FIRE,ELEC,PHYS,WIERD}
 
-var weap1 = weapon.new()
+var weap1 = weapon.new() 
 var weap2 = weapon.new()
 var weap3 = weapon.new()
 var weap4 = weapon.new()
+
+
 var weapons  = [weap1,weap2,weap3,weap4]
 var default_weapon = weapon.new()
 
@@ -71,6 +75,7 @@ func _ready() -> void:
 	default_weapon.dmg_min = 1
 	default_weapon.type = PHYS
 	
+
 
 func _process(delta: float) -> void:
 	if(fighting and !dead):
@@ -146,13 +151,14 @@ func _physics_process(delta: float) -> void:
 		else:
 			tween = create_tween()
 		tween.tween_property(self, "transform", transform.rotated_local(Vector3.UP, -PI/2), MOVE_SPEED)
-	
+
 	if Input.is_action_just_pressed("Inventory"):
 		if !inventoryMenu.is_visible():
 			inventoryMenu.show()
 			equipMenu.show()
 			itemInventory.show()
 			dropSlot.hide()
+			keyCheck.hide()
 			
 		else:
 			inventoryMenu.hide()
@@ -163,20 +169,31 @@ func _physics_process(delta: float) -> void:
 			print("wall")
 		else:
 			hit(thing_hit)
-	if Input.is_key_label_pressed(KEY_L):
-		get_parent().clear_enemies()
+
+			
+	if Input.is_action_just_pressed("testinput"):
+		inventoryMenu._on_death()
+		
+
 
 func hit(hit_object):
 	match hit_object.collision_layer:
 		1: #walls
 			pass
 		2: #doors
-			hit_object.open_door()
-			#TODO: open door function should check if player has 'key' in inventory, if not, fuck you
-			if inventoryMenu._key_check() == true:
-				hit_object.open_door()
-			#else:
-				#print("no key detected")
+			inventoryMenu.show()
+			equipMenu.hide()
+			itemInventory.show()
+			dropSlot.hide()
+			keyCheck.show()
+			
+			if keySlot.texture == load("res://Visual Resources/KeyCard.png"):
+				hit_object.open_door() 
+				
+				keySlot.texture == null
+				keyCheck.hide()
+				itemInventory.hide()
+				
 		4: #enemy
 			if !battleInterface.is_visible():
 				battleInterface.show()
@@ -235,10 +252,8 @@ func update_bars():
 	battleInterface.ATB3.atb.value = time_left3
 	battleInterface.ATB4.atb.value = time_left4
 	
-
-
 func defaultSkillsAndWeaps():
-	weap1.w_name = "Name 1"
+	weap1.w_name = "Empty"
 	weap2.w_name = "Name 2"
 	weap3.w_name = "Name 3"
 	weap4.w_name = "Name 4"

@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://050lspxqr85s"]
+[gd_scene load_steps=4 format=3 uid="uid://050lspxqr85s"]
 
 [ext_resource type="Script" path="res://Scripts/inventory.gd" id="1_lah5x"]
 [ext_resource type="Texture2D" uid="uid://d0re8fcc6rjdj" path="res://Visual Resources/Inventory background.png" id="2_t4rvb"]
-[ext_resource type="Texture2D" uid="uid://cv5bxebdnxxmj" path="res://Visual Resources/slotBackground.png" id="3_xe1dl"]
 [ext_resource type="Texture2D" uid="uid://d4e74gwvc7v35" path="res://Scenes/slotBackground.png" id="4_kvl75"]
 
 [node name="Inventory" type="Control"]
@@ -10,36 +9,32 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
+offset_left = 10.0
+offset_top = -112.0
+offset_right = 10.0
+offset_bottom = -112.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lah5x")
 
 [node name="ItemInventory" type="ColorRect" parent="."]
-layout_mode = 0
-offset_right = 369.0
-offset_bottom = 258.0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -95.0
+offset_right = 271.0
+offset_bottom = 52.0
+grow_vertical = 2
 color = Color(0.197937, 0.197937, 0.197937, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="ItemInventory"]
 layout_mode = 1
-offset_right = 370.0
-offset_bottom = 256.0
+offset_right = 271.0
+offset_bottom = 146.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ItemInventory/MarginContainer"]
 layout_mode = 2
-
-[node name="Header" type="HBoxContainer" parent="ItemInventory/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-
-[node name="ButtonSpawn" type="Button" parent="ItemInventory/MarginContainer/VBoxContainer/Header"]
-custom_minimum_size = Vector2(300, 50)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-text = "SpawnItemDebug"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="ItemInventory/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -65,27 +60,6 @@ grow_horizontal = 0
 grow_vertical = 2
 texture = ExtResource("2_t4rvb")
 expand_mode = 1
-
-[node name="Head" type="TextureRect" parent="ColorRect"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -60.5
-offset_top = 4.0
-offset_right = 60.5
-offset_bottom = 82.0
-grow_horizontal = 2
-texture = ExtResource("3_xe1dl")
-expand_mode = 1
-
-[node name="HeadSprite" type="TextureRect" parent="ColorRect/Head"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="LeftArm" type="TextureRect" parent="ColorRect"]
 layout_mode = 1
@@ -122,25 +96,6 @@ expand_mode = 1
 layout_mode = 0
 offset_top = 1.0
 offset_right = 121.0
-offset_bottom = 78.0
-
-[node name="Chest" type="TextureRect" parent="ColorRect"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 109.0
-offset_top = -46.0
-offset_right = 230.0
-offset_bottom = 32.0
-grow_vertical = 2
-texture = ExtResource("4_kvl75")
-expand_mode = 1
-
-[node name="ChestSprite" type="TextureRect" parent="ColorRect/Chest"]
-layout_mode = 0
-offset_left = -1.0
-offset_right = 122.0
 offset_bottom = 78.0
 
 [node name="LeftLeg" type="TextureRect" parent="ColorRect"]
@@ -207,9 +162,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -28.5
+offset_left = 30.5
 offset_top = -26.5
-offset_right = 28.5
+offset_right = 87.5
 offset_bottom = 26.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -239,5 +194,120 @@ offset_top = 5.0
 offset_right = 34.0
 offset_bottom = 35.0
 
-[connection signal="pressed" from="ItemInventory/MarginContainer/VBoxContainer/Header/ButtonSpawn" to="." method="_on_button_spawn_pressed"]
+[node name="TextureRect2" type="TextureRect" parent="ItemDrop/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.5
+offset_top = -26.5
+offset_right = -28.5
+offset_bottom = 26.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_kvl75")
+expand_mode = 1
+
+[node name="KeyDropSlot" type="TextureRect" parent="ItemDrop/TextureRect/TextureRect2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="KeyGrab" type="Button" parent="ItemDrop/TextureRect/TextureRect2/KeyDropSlot"]
+layout_mode = 0
+offset_right = 42.0
+offset_bottom = 41.0
+
+[node name="Label" type="Label" parent="ItemDrop"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = -28.0
+offset_right = 179.0
+offset_bottom = -5.0
+text = "Grab your loot!"
+horizontal_alignment = 1
+
+[node name="KeyCheck" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -116.0
+offset_top = -83.5
+offset_right = 116.0
+offset_bottom = 83.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="KeyCheck"]
+layout_mode = 0
+offset_top = 185.5
+offset_right = 236.0
+offset_bottom = 354.5
+texture = ExtResource("2_t4rvb")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="KeyCheck/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.5
+offset_top = -26.5
+offset_right = 29.5
+offset_bottom = 26.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_kvl75")
+expand_mode = 1
+
+[node name="ItemDropSlot" type="TextureRect" parent="KeyCheck/TextureRect/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="ItemGrab" type="Button" parent="KeyCheck/TextureRect/TextureRect/ItemDropSlot"]
+z_index = -1
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 34.0
+offset_bottom = 35.0
+
+[node name="Label" type="Label" parent="KeyCheck"]
+layout_mode = 0
+offset_left = -50.0
+offset_top = 369.5
+offset_right = 281.0
+offset_bottom = 392.5
+text = "Place a key in the slot to unlock the door...."
+
 [connection signal="pressed" from="ItemDrop/TextureRect/TextureRect/ItemDropSlot/ItemGrab" to="." method="_on_item_grab_pressed"]
+[connection signal="pressed" from="ItemDrop/TextureRect/TextureRect2/KeyDropSlot/KeyGrab" to="." method="_on_key_grab_pressed"]
+[connection signal="pressed" from="KeyCheck/TextureRect/TextureRect/ItemDropSlot/ItemGrab" to="." method="_on_item_grab_pressed"]

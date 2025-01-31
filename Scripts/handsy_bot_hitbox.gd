@@ -37,8 +37,9 @@ func _process(delta: float) -> void:
 	if (fight_started): 
 		time_left = charge.time_left
 		update_bars()
+
 	if(tbHealth<=0):
-		get_parent().get_parent().player.end_fight(2)
+		get_parent().get_parent().player.end_fight()
 		get_parent().queue_free()
 		charge = null
 

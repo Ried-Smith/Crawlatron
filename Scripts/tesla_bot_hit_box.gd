@@ -34,7 +34,7 @@ func _process(delta: float) -> void:
 		time_left = charge.time_left
 		update_bars()
 	if(tbHealth<=0):
-		get_parent().get_parent().player.end_fight(2)
+		get_parent().get_parent().player.end_fight()
 		get_parent().queue_free()
 		charge = null
 		
@@ -131,7 +131,6 @@ func update_bars():
 	battleInterface.enemy_block.health.value = tbHealth
 	battleInterface.enemy_block.shield.value = tbShield
 	battleInterface.enemy_block.atb.value = time_left
-
 
 func _on_timer_timeout():
 	remove_child(charge)

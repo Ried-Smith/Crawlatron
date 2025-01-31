@@ -11,7 +11,6 @@ func _ready():
 
 func _process(delta):
 	sceneLoadStatus = ResourceLoader.load_threaded_get_status(sceneName, progress)
-	$TextureRect/Countdown.text = "Loading: " + str(floor(progress[0]*100)) + "%"
 	if sceneLoadStatus == ResourceLoader.THREAD_LOAD_LOADED:
 		var newScene = ResourceLoader.load_threaded_get(sceneName)
 		get_tree().change_scene_to_packed(newScene)

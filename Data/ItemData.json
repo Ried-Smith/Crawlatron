@@ -1,28 +1,34 @@
 {
 	"1": {
 	  "Name": "ClawArm",
-	  "PassiveSkill": null,
-	  "ActiveSkill": null,
-	  "SkillName": "Claw Crusher",
 	  "Grid": "0,0/0,-1/1,0"
 	},
 	"2": {
 	  "Name": "TeslaT",
-	  "PassiveSkill": null,
-	  "ActiveSkill": null,
-	  "SkillName": "Tesla Zapper",
 	  "Grid": "0,0/1,0/2,0/1,1/1,2"
 	},
 	"3": {
 	  "Name": "PowerPiston",
-	  "PassiveSkill": null,
-	  "ActiveSkill": null,
-	  "Grid": "0,0/1,0"
+	  "Grid": "0,0/0,-1"
 	},
 	"4": {
-	  "Name": "Item4",
-	  "PassiveSkill": null,
-	  "ActiveSkill": null,
-	  "Grid": "0,0"
+	  "Name": "ExtendoCordo",
+	  "Grid": "0,0/0,1/-1,0"
+	},
+	"5":{
+		"Name": "PowerCore",
+		"Grid": "0,0"
+	},
+	"6":{
+		"Name": "GreenCore",
+		"Grid": "0,0"
+	},
+	"7":{
+		"Name": "BlueCore",
+		"Grid": "0,0"
+		},
+	"8":{
+		"Name": "KeyCard",
+		"Grid": "0,0"
 	}
 }
