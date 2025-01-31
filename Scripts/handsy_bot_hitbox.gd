@@ -39,6 +39,7 @@ func _process(delta: float) -> void:
 		update_bars()
 
 	if(tbHealth<=0):
+		get_parent().get_parent().remove_bot(get_parent())
 		get_parent().get_parent().player.end_fight()
 		get_parent().queue_free()
 		charge = null

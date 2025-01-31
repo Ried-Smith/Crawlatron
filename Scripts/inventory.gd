@@ -40,7 +40,8 @@ func _process(delta):
 			if Input.is_action_just_pressed("rotateItem"):
 				_rotate_item()
 			
-			
+			if Input.is_action_just_pressed("Discard"):
+				_delete_item(itemHeld)
 			# God this is so fucking ass but it works its fine now
 			if Input.is_action_just_pressed("placeItem"):
 				if scrollContainer.get_global_rect().has_point(get_global_mouse_position()):
@@ -76,7 +77,9 @@ func _process(delta):
 				
 				elif keySlot.get_global_rect().has_point(get_global_mouse_position()):
 					_key_unlock(itemHeld)
+					
 
+					
 
 		else:
 			if Input.is_action_just_pressed("placeItem"):
@@ -230,11 +233,10 @@ func _on_key_grab_pressed():
 
 #TODO: make this work if I feel like it
 
-func _on_discard_pressed():
-	if itemHeld:
-		itemHeld.remove_child(itemHeld)
-		itemHeld = null
-		_clear_grid()
+func _delete_item(itemToDelete):
+	itemToDelete.get_parent().remove_child(itemToDelete)
+	itemHeld = null
+	_clear_grid()
 
 
 func _check_slot_availability(a_Slot):

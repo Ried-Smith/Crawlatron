@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ddxrdcnua57ye"]
+[gd_scene load_steps=16 format=3 uid="uid://ddxrdcnua57ye"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_xfgve"]
 [ext_resource type="PackedScene" uid="uid://c6fuu1lurnocw" path="res://Scenes/map.tscn" id="2_usn4h"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://u0oiusp2vfsx" path="res://Scenes/player.tscn" id="4_1dgt1"]
 [ext_resource type="AudioStream" uid="uid://b3uwn7kq0rxwv" path="res://Audio Resources/ambient.wav" id="5_03vwv"]
 [ext_resource type="PackedScene" uid="uid://050lspxqr85s" path="res://Scenes/inventory.tscn" id="6_0cl7m"]
+[ext_resource type="AudioStream" uid="uid://d4cc0hotuwyo5" path="res://Audio Resources/Fight!!.wav" id="6_plqx0"]
 [ext_resource type="PackedScene" uid="uid://di7124re2rl7d" path="res://Scenes/battle_interface.tscn" id="7_el5xa"]
 [ext_resource type="Script" path="res://Scripts/game_over_screen.gd" id="8_7kfb2"]
 [ext_resource type="Texture2D" uid="uid://bebxy2cfvy0d2" path="res://Visual Resources/game_over.png" id="9_imvhn"]
@@ -26,6 +27,10 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_03vwv")
 autoplay = true
+
+[node name="FaceMelt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_plqx0")
+volume_db = -15.364
 
 [node name="Inventory" parent="." instance=ExtResource("6_0cl7m")]
 visible = false

@@ -20,12 +20,15 @@ const player_new = preload("res://Scenes/player.tscn")
 var Cells = []
 var Types = [0]
 var Enemies = []
-var maps = [map2,map3,map1,mapBoss]
+var maps = [map2,mapBoss,map1,mapBoss]
 
 @export var Map: PackedScene
 @export var Globals: Script
 @onready var battleInterface = $BattleInterface
 @onready var player = $Player
+
+@onready var ambient = $AudioStreamPlayer2D
+@onready var facemelting = $FaceMelt
 
 var map_index = 0
 var current_map = maps[map_index]
@@ -117,9 +120,19 @@ func clear_map():
 	Cells = []
 	generate_map(current_map)
 	
+func remove_bot(deadBot):
+	var shit = 0
+	
+	for enemy in Enemies:
+		if deadBot == enemy:
+			Enemies.remove_at(shit)
+		shit += 1
+			
+
 func clear_enemies():
 	for enemy in Enemies:
 		remove_child(enemy)
+		
 	Enemies = []
 func _ready() -> void:
 	generate_map(current_map)
@@ -133,5 +146,8 @@ func next_level():
 	clear_enemies()
 	map_index+=1
 	current_map = maps[map_index]
+	if current_map == mapBoss:
+		ambient.stop()
+		facemelting.play()
 	clear_map()
 	

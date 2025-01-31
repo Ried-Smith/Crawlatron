@@ -170,12 +170,6 @@ func _physics_process(delta: float) -> void:
 		else:
 			hit(thing_hit)
 
-			
-	if Input.is_action_just_pressed("testinput"):
-		inventoryMenu._on_death()
-		
-
-
 func hit(hit_object):
 	match hit_object.collision_layer:
 		1: #walls
@@ -278,16 +272,10 @@ func defaultSkillsAndWeaps():
 	weap3.charge_time = 6
 	weap4.charge_time = 8
 
-func end_fight(botType):
-	match botType:
-		# 1=crab, 2=tesla, 3=bot with big mommy milkers AWOOGA
-		1:
-			inventoryMenu._on_death(1)
-		2:
-			inventoryMenu._on_death(2)
-		3:
-			inventoryMenu._on_death(3)
-			
+func end_fight():
+	
+	inventoryMenu._on_death()
+	
 	match randi()%3:
 		0:
 			botkill1.play()
