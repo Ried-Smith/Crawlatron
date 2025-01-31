@@ -12,9 +12,14 @@ extends Node3D
 @onready var botkill2 = $botkill2
 @onready var botkill3 = $botkill3
 @onready var inventoryMenu = $"../Inventory"
+@onready var itemInventory = $"../Inventory/ItemInventory"
+@onready var equipMenu = $"../Inventory/ColorRect"
+@onready var dropSlot = $"../Inventory/ItemDrop"
 @onready var battleInterface = $"../BattleInterface"
+@onready var gameOver = $"../gameOverScreen"
 @onready var pilot = $pilot
 
+@onready var playerVariables = preload("res://Scenes/PlayerVariables.tscn")
 
 
 
@@ -29,6 +34,7 @@ var playerHealth = 100
 var playerHealthMax = 100
 var playerShield = 100
 var playerShieldMax = 100
+
 
 #TODO: dont let the number of skills equipped from items exceed 6
 
@@ -58,6 +64,7 @@ var tween
 var current_enemy
 var fighting = false
 var dead = false
+var restart_debug =true
 
 var charge1 
 var charge2
@@ -78,7 +85,9 @@ func _process(delta: float) -> void:
 		time_left3 = charge3.time_left
 		time_left4 = charge4.time_left
 		update_bars()
-	if(playerHealth<=0): dead = true
+	if(playerHealth<=0): 
+		dead = true
+
 
 func _physics_process(delta: float) -> void:
 	if tween is Tween:
@@ -159,20 +168,20 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("Inventory"):
 		if !inventoryMenu.is_visible():
 			inventoryMenu.show()
-
+			equipMenu.show()
+			itemInventory.show()
+			dropSlot.hide()
+			
 		else:
 			inventoryMenu.hide()
-
+			
 	if Input.is_action_just_pressed("Attack") and front_ray.is_colliding():
 		var thing_hit = front_ray.get_collider()
 		if "collision_layer" not in thing_hit:
 			print("wall")
 		else:
 			hit(thing_hit)
-	
-	if Input.is_action_just_pressed("testinput"):
-		pass
-		inventoryMenu._key_check()
+
 
 func hit(hit_object):
 	match hit_object.collision_layer:
@@ -181,8 +190,8 @@ func hit(hit_object):
 		2: #doors
 			hit_object.open_door()
 			#TODO: open door function should check if player has 'key' in inventory, if not, fuck you
-			#if inventoryMenu._key_check() == true:
-				#hit_object.open_door()
+			if inventoryMenu._key_check() == true:
+				hit_object.open_door()
 			#else:
 				#print("no key detected")
 		4: #enemy
@@ -199,7 +208,7 @@ func hit(hit_object):
 				attack3()
 				attack4()
 		8: #interactive switch or pickup
-			pass
+			hit_object.eat_totem()
 		16:
 			if (get_parent().Enemies.size()) <= 0:
 				get_parent().clear_map()
@@ -262,7 +271,16 @@ func defaultSkillsAndWeaps():
 	weap3.charge_time = 6
 	weap4.charge_time = 8
 
-func end_fight():
+func end_fight(botType):
+	match botType:
+		# 1=crab, 2=tesla, 3=bot with big mommy milkers AWOOGA
+		1:
+			inventoryMenu._on_death(1)
+		2:
+			inventoryMenu._on_death(2)
+		3:
+			inventoryMenu._on_death(3)
+			
 	match randi()%3:
 		0:
 			botkill1.play()
@@ -273,6 +291,7 @@ func end_fight():
 	if battleInterface.is_visible():
 		battleInterface.hide()
 		fighting  = false
+	playerShield = playerShieldMax
 
 func attack1():
 	battleInterface.ATB1.weapon_name.text = "[center]"+weap2.w_name+"[/center]"
@@ -368,3 +387,8 @@ func dmg_mod(TYPE,dmg):
 	enemy_health -= dmg_health
 	current_enemy.tbHealth = enemy_health
 	current_enemy.tbShield = enemy_shield
+
+func death():
+	if(dead):
+		gameOver.show()
+		battleInterface.hide()

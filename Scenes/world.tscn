@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ddxrdcnua57ye"]
+[gd_scene load_steps=11 format=3 uid="uid://ddxrdcnua57ye"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_xfgve"]
 [ext_resource type="PackedScene" uid="uid://c6fuu1lurnocw" path="res://Scenes/map.tscn" id="2_usn4h"]
@@ -7,6 +7,9 @@
 [ext_resource type="AudioStream" uid="uid://b3uwn7kq0rxwv" path="res://Audio Resources/ambient.wav" id="5_03vwv"]
 [ext_resource type="PackedScene" uid="uid://050lspxqr85s" path="res://Scenes/inventory.tscn" id="6_0cl7m"]
 [ext_resource type="PackedScene" uid="uid://di7124re2rl7d" path="res://Scenes/battle_interface.tscn" id="7_el5xa"]
+[ext_resource type="Script" path="res://Scripts/game_over_screen.gd" id="8_7kfb2"]
+[ext_resource type="Texture2D" uid="uid://bebxy2cfvy0d2" path="res://Visual Resources/game_over.png" id="9_imvhn"]
+[ext_resource type="Texture2D" uid="uid://bxu77gkws81ho" path="res://Visual Resources/restart.png" id="10_5ef8o"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_xfgve")
@@ -21,5 +24,41 @@ stream = ExtResource("5_03vwv")
 autoplay = true
 
 [node name="Inventory" parent="." instance=ExtResource("6_0cl7m")]
+visible = false
 
 [node name="BattleInterface" parent="." instance=ExtResource("7_el5xa")]
+visible = false
+
+[node name="gameOverScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_7kfb2")
+
+[node name="TextureRect" type="TextureRect" parent="gameOverScreen"]
+layout_mode = 0
+offset_right = 1154.0
+offset_bottom = 653.0
+texture = ExtResource("9_imvhn")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Button" type="Button" parent="gameOverScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -196.0
+offset_top = 134.0
+offset_right = 412.0
+offset_bottom = 343.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.68, 0.68)
+focus_mode = 0
+icon = ExtResource("10_5ef8o")

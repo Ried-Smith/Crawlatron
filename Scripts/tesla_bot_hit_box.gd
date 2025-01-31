@@ -22,6 +22,7 @@ var fight_started  = false
 var alive = true
 var attacking = false
 var test_kill = false
+var current_enemy
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -33,7 +34,7 @@ func _process(delta: float) -> void:
 		time_left = charge.time_left
 		update_bars()
 	if(tbHealth<=0):
-		get_parent().get_parent().player.end_fight()
+		get_parent().get_parent().player.end_fight(2)
 		get_parent().queue_free()
 		charge = null
 		
@@ -60,6 +61,7 @@ func fight_ready():
 	health_bar = tbHealth
 	shield_bar_max = tbShield
 	shield_bar = tbShield
+	current_enemy = get_parent().get_parent().player
 	battleInterface = get_parent().get_parent().battleInterface
 	battleInterface.enemy_block.health.max_value = health_bar_max 
 	battleInterface.enemy_block.health.value = health_bar 
@@ -81,7 +83,7 @@ func attack_1():
 	charge.one_shot = true
 	charge.start()
 	battleInterface.enemy_block.attack_name.text = "[center]"+"Force Wave"+"[/center]"
-	dmg = 10
+	dmg = 20
 	type = PHYS
 	battleInterface.enemy_block.atb.max_value = charge.wait_time
 	#time_left = charge.time_left
@@ -124,12 +126,52 @@ func attack_4():
 	dmg = 50
 	type = ELEC
 	battleInterface.enemy_block.atb.max_value = charge.wait_time
-	#time_left = charge.time_left
 
 func update_bars():
 	battleInterface.enemy_block.health.value = tbHealth
 	battleInterface.enemy_block.shield.value = tbShield
 	battleInterface.enemy_block.atb.value = time_left
 
+
 func _on_timer_timeout():
+	remove_child(charge)
+	dmg_mod(type,dmg)
+	health_check()
 	fight()
+
+
+func dmg_mod(TYPE,dmg):
+	var dmg_shield
+	var dmg_health
+	var enemy_shield = current_enemy.playerShield
+	var enemy_health = current_enemy.playerHealth
+	dmg+=1500000
+	match TYPE:
+		FIRE:
+			dmg_shield = round(dmg * .25)
+			dmg_health = round(dmg * .75)
+		ELEC:
+			dmg_shield = round(dmg * .75)
+			dmg_health = round(dmg * .25)
+		PHYS:
+			dmg_shield = dmg
+			dmg_health = 0
+		WIERD:
+			dmg_shield = round(dmg * .50)
+			dmg_health = round(dmg * .50)
+	
+	if(enemy_shield<=dmg_shield):
+		dmg_shield-=enemy_shield
+		dmg_health+=dmg_shield
+		dmg_shield = 0
+		enemy_shield = 0
+	enemy_shield -= dmg_shield
+	enemy_health -= dmg_health
+	current_enemy.playerHealth = enemy_health
+	current_enemy.playerShield = enemy_shield
+	
+func health_check():
+	if(current_enemy.playerHealth <= 0):
+		current_enemy.death()
+	elif(current_enemy.playerHealth<=current_enemy.playerHealth/current_enemy.playerHealthMax):
+		current_enemy.ouchie()

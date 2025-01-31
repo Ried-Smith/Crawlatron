@@ -3,13 +3,15 @@
 	  "Name": "ClawArm",
 	  "PassiveSkill": null,
 	  "ActiveSkill": null,
+	  "SkillName": "Claw Crusher",
 	  "Grid": "0,0/0,-1/1,0"
 	},
 	"2": {
-	  "Name": "PowerCore",
+	  "Name": "TeslaT",
 	  "PassiveSkill": null,
 	  "ActiveSkill": null,
-	  "Grid": "0,0"
+	  "SkillName": "Tesla Zapper",
+	  "Grid": "0,0/1,0/2,0/1,1/1,2"
 	},
 	"3": {
 	  "Name": "PowerPiston",
