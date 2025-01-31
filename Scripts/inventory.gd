@@ -12,18 +12,15 @@ extends Control
 @onready var ItemInventory = $ItemInventory
 @onready var equipmentInventory = $ColorRect
 @onready var itemDropMenu = $ItemDrop
-
 @onready var playerScene = preload("res://Scenes/player.tscn").instantiate()
-
-
-@onready var helmEquipSlot = $ColorRect/Head/HeadSprite
 @onready var leftArmEquipSlot = $ColorRect/LeftArm/LeftArmSprite
 @onready var rightArmEquipSlot = $ColorRect/RightArm/RightArmSprite
-@onready var chestEquipSlot = $ColorRect/Chest/ChestSprite
 @onready var leftLegEquipSlot = $ColorRect/LeftLeg/LeftLegSprite
 @onready var rightLegEquipSlot = $ColorRect/RightLeg/RightLegSprite
-
+@onready var keyDripSlot = $ItemDrop/TextureRect/TextureRect2/KeyDropSlot
 @onready var itemDropSlot = $ItemDrop/TextureRect/TextureRect/ItemDropSlot
+@onready var keySlot = $KeyCheck/TextureRect/TextureRect
+@onready var keyCheck = $KeyCheck
 
 
 
@@ -37,8 +34,6 @@ var pickupToGrab = null
 func _ready():
 	for i in range(32):
 		createSlot()
-		
-
 	inventoryMenu.hide()
 
 	
@@ -54,11 +49,6 @@ func _process(delta):
 				if scrollContainer.get_global_rect().has_point(get_global_mouse_position()):
 					_place_item()
 					
-				elif helmEquipSlot.get_global_rect().has_point(get_global_mouse_position()):
-					if helmEquipSlot.texture == null:
-						_equip_item(itemHeld, helmEquipSlot)
-					else:
-						print("item already equipped!!")
 
 				elif rightArmEquipSlot.get_global_rect().has_point(get_global_mouse_position()):
 					if rightArmEquipSlot.texture == null:
@@ -69,12 +59,6 @@ func _process(delta):
 				elif leftArmEquipSlot.get_global_rect().has_point(get_global_mouse_position()):
 					if leftArmEquipSlot.texture == null:
 						_equip_item(itemHeld, leftArmEquipSlot)
-					else:
-						print("item already equipped!!")
-						
-				elif chestEquipSlot.get_global_rect().has_point(get_global_mouse_position()):
-					if chestEquipSlot.texture == null:
-						_equip_item(itemHeld, chestEquipSlot)
 					else:
 						print("item already equipped!!")
 						
@@ -92,15 +76,15 @@ func _process(delta):
 				
 				elif itemDropSlot.get_global_rect().has_point(get_global_mouse_position()):
 					_on_item_grab_pressed()
+				
+				elif keySlot.get_global_rect().has_point(get_global_mouse_position()):
+					_key_unlock(itemHeld)
+
 
 		else:
 			if Input.is_action_just_pressed("placeItem"):
 				if scrollContainer.get_global_rect().has_point(get_global_mouse_position()):
 					_pickup_item()
-					
-				elif helmEquipSlot.get_global_rect().has_point(get_global_mouse_position()):
-					if !helmEquipSlot.texture == null:
-						_special_pickup(PlayerVariables.helmetSlot, helmEquipSlot)
 						
 				elif leftArmEquipSlot.get_global_rect().has_point(get_global_mouse_position()):
 					if !leftArmEquipSlot.texture == null:
@@ -109,10 +93,6 @@ func _process(delta):
 				elif rightArmEquipSlot.get_global_rect().has_point(get_global_mouse_position()):
 					if !rightArmEquipSlot.texture == null:
 						_special_pickup(PlayerVariables.rightArmSlot, rightArmEquipSlot)
-						
-				elif chestEquipSlot.get_global_rect().has_point(get_global_mouse_position()):
-					if !chestEquipSlot.texture == null:
-						_special_pickup(PlayerVariables.chestSlot, chestEquipSlot)
 						
 				elif leftLegEquipSlot.get_global_rect().has_point(get_global_mouse_position()):
 					if !leftLegEquipSlot.texture == null:
@@ -143,21 +123,45 @@ func _on_slot_mouse_entered(a_Slot):
 func _on_slot_mouse_exited(a_Slot):
 	_clear_grid()
 
-func _on_death(botType):
-	# itemToSpawn will change based on what the enemy defeated is
-	var itemToSpawn
-	match botType:
-		1:
-			itemToSpawn = load("res://Visual Resources/ClawArm.png")
-		2:
-			itemToSpawn = load("res://Visual Resources/TeslaT.png")
-			# idk whos gonna drop the key
+func _on_death():
 	
+#item 1: crab claw 20%
+#item 2: tesla coil 20%
+#item 3: Power piston 20%
+#item 4: Extendo-Cordo 20%
+#item 5: key
+#item 6: red core 5% 
+#item 7: blue core 5% 
+#item 8: green core 10%
+
+	randomize()
 	
-	inventoryMenu.show()
+	var itemToSpawn = randi() % 100 + 1
+	
+	if itemToSpawn >= 1 and itemToSpawn <= 20:  
+		itemToSpawn = load("res://Visual Resources/ClawArm.png") 
+	elif itemToSpawn >= 21 and itemToSpawn <= 40:
+		itemToSpawn = load("res://Visual Resources/TeslaT.png")
+	elif itemToSpawn >= 41 and itemToSpawn <= 60:
+		itemToSpawn = load("res://Visual Resources/PowerPiston.png")
+	elif itemToSpawn >= 61 and itemToSpawn <= 80:
+		itemToSpawn = load("res://Visual Resources/ExtendoCordo.png")
+	elif itemToSpawn >= 81 and itemToSpawn <= 85:
+		itemToSpawn = load("res://Visual Resources/BlueCore.png")
+	elif itemToSpawn >= 86 and itemToSpawn <= 90:
+		itemToSpawn = load("res://Visual Resources/PowerCore.png")
+	elif itemToSpawn >= 91 and itemToSpawn <= 100:
+		itemToSpawn = load("res://Visual Resources/GreenCore.png")
+		
 	itemDropMenu.show()
+	inventoryMenu.show()
+	ItemInventory.show()
+	equipmentInventory.hide()
+	keyCheck.hide()
 	# this texture will be different
 	itemDropSlot.texture = itemToSpawn
+	keyDripSlot.texture = load("res://Visual Resources/KeyCard.png")
+	
 	
 
 func _grab_drop(itemToPickup):
@@ -183,15 +187,24 @@ func _grab_drop(itemToPickup):
 func _on_item_grab_pressed():
 	var texture = $ItemDrop/TextureRect/TextureRect/ItemDropSlot.texture
 	var itemToSpawn
-	print(texture)
 	
 	match texture:
-		preload("res://Visual Resources/CrabClaw.png"):
+		preload("res://Visual Resources/ClawArm.png"):
 			itemToSpawn = 1
 		preload("res://Visual Resources/TeslaT.png"):
 			itemToSpawn = 2
-		
-	
+		preload("res://Visual Resources/PowerPiston.png"):
+			itemToSpawn = 3
+		preload("res://Visual Resources/ExtendoCordo.png"):
+			itemToSpawn = 4
+		preload("res://Visual Resources/PowerCore.png"):
+			itemToSpawn = 5	
+		preload("res://Visual Resources/GreenCore.png"):
+			itemToSpawn = 6
+		preload("res://Visual Resources/BlueCore.png"):
+			itemToSpawn = 7
+
+
 	var newItem = itemScene.instantiate()
 	add_child(newItem)
 	newItem._loadItem(itemToSpawn)
@@ -202,9 +215,10 @@ func _on_item_grab_pressed():
 	
 	itemDropSlot.texture = null
 
+func _on_key_grab_pressed():
+	var texture = $ItemDrop/TextureRect/TextureRect2/KeyDropSlot.texture
 	
-func _on_button_spawn_pressed():
-	var itemToSpawn = 2
+	var itemToSpawn = 8
 	
 	var newItem = itemScene.instantiate()
 	add_child(newItem)
@@ -213,12 +227,17 @@ func _on_button_spawn_pressed():
 	itemHeld = newItem
 	
 	itemHeld.itemID = itemToSpawn
+	
+	keyDripSlot.texture = null
 
 
 #TODO: make this work if I feel like it
+
 func _on_discard_pressed():
 	if itemHeld:
 		itemHeld.remove_child(itemHeld)
+		itemHeld = null
+		_clear_grid()
 
 
 func _check_slot_availability(a_Slot):
@@ -310,14 +329,11 @@ func _special_pickup(itemToPickup, equipSlot):
 	equipSlot.texture = null
 	
 	match equipSlot:
-		helmEquipSlot:
-			PlayerVariables.helmetSlot = null
+
 		leftArmEquipSlot:
 			PlayerVariables.leftArmSlot = null
 		rightArmEquipSlot:
 			PlayerVariables.rightArmSlot = null
-		chestEquipSlot:
-			PlayerVariables.chestSlot = null
 		leftLegEquipSlot:
 			PlayerVariables.leftLegSlot = null
 		rightLegEquipSlot:
@@ -349,14 +365,10 @@ func _equip_item(itemToEquip, slotToEquip):
 	slotToEquip.set_texture(itemToEquip.IconRectPath.get_texture())
 	
 	match slotToEquip:
-		helmEquipSlot:
-			PlayerVariables.helmetSlot = itemToEquip
 		leftArmEquipSlot:
 			PlayerVariables.leftArmSlot = itemToEquip
 		rightArmEquipSlot:
 			PlayerVariables.rightArmSlot = itemToEquip
-		chestEquipSlot:
-			PlayerVariables.chestSlot = itemToEquip
 		leftLegEquipSlot:
 			PlayerVariables.leftLegSlot = itemToEquip
 		rightLegEquipSlot:
@@ -367,8 +379,10 @@ func _equip_item(itemToEquip, slotToEquip):
 	_clear_grid() # do I even need clear grid?
 
 
-
-func _key_check():
-	print(PlayerVariables.heldItems)
-	if PlayerVariables.heldItems.has(1):
-		return true
+func _key_unlock(key):
+	
+	keySlot.texture = load("res://Visual Resources/KeyCard.png")
+	
+	key.get_parent().remove_child(key)
+	itemHeld = null
+	_clear_grid()

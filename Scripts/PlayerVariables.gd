@@ -8,4 +8,5 @@ var chestSlot
 var rightLegSlot
 var leftLegSlot
 
+# use this to check the key
 var heldItems = []

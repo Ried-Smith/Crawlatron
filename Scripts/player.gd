@@ -15,6 +15,8 @@ extends Node3D
 @onready var itemInventory = $"../Inventory/ItemInventory"
 @onready var equipMenu = $"../Inventory/ColorRect"
 @onready var dropSlot = $"../Inventory/ItemDrop"
+@onready var keyCheck = $"../Inventory/KeyCheck"
+@onready var keySlot = $"../Inventory/KeyCheck/TextureRect/TextureRect"
 @onready var battleInterface = $"../BattleInterface"
 @onready var gameOver = $"../gameOverScreen"
 @onready var pilot = $pilot
@@ -46,19 +48,12 @@ var equip = []
 
 enum {FIRE,ELEC,PHYS,WIERD}
 
-var weap1 = weapon.new()
+var weap1 = weapon.new() 
 var weap2 = weapon.new()
 var weap3 = weapon.new()
 var weap4 = weapon.new()
-var weapons  = [weap1,weap2,weap3,weap4]
+var weapons  = [weap1,weap2,weap3, weap4]
 
-var skill1
-var skill2
-var skill3
-var skill4
-var skill5
-var skill6
-var skills = [skill1,skill2,skill3,skill4,skill5,skill6]
 
 var tween
 var current_enemy
@@ -77,6 +72,7 @@ var time_left4 = 0
 
 func _ready() -> void:
 	defaultSkillsAndWeaps()
+
 
 func _process(delta: float) -> void:
 	if(fighting and !dead):
@@ -150,20 +146,6 @@ func _physics_process(delta: float) -> void:
 			tween = create_tween()
 		tween.tween_property(self, "transform", transform.rotated_local(Vector3.UP, -PI/2), MOVE_SPEED)
 
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	#TODO:GET RID OF THIS BEFORE RELEASE PLEASE IM BEGGING YOU PLEASE PLEASE
-	if Input.is_key_label_pressed(KEY_K) and not fighting:
-		get_parent().clear_enemies()
-
 
 
 	if Input.is_action_just_pressed("Inventory"):
@@ -172,6 +154,7 @@ func _physics_process(delta: float) -> void:
 			equipMenu.show()
 			itemInventory.show()
 			dropSlot.hide()
+			keyCheck.hide()
 			
 		else:
 			inventoryMenu.hide()
@@ -182,6 +165,10 @@ func _physics_process(delta: float) -> void:
 			print("wall")
 		else:
 			hit(thing_hit)
+			
+	if Input.is_action_just_pressed("testinput"):
+		inventoryMenu._on_death()
+		
 
 
 func hit(hit_object):
@@ -189,12 +176,19 @@ func hit(hit_object):
 		1: #walls
 			pass
 		2: #doors
-			hit_object.open_door()
-			#TODO: open door function should check if player has 'key' in inventory, if not, fuck you
-			if inventoryMenu._key_check() == true:
-				hit_object.open_door()
-			#else:
-				#print("no key detected")
+			inventoryMenu.show()
+			equipMenu.hide()
+			itemInventory.show()
+			dropSlot.hide()
+			keyCheck.show()
+			
+			if keySlot.texture == load("res://Visual Resources/KeyCard.png"):
+				hit_object.open_door() 
+				
+				keySlot.texture == null
+				keyCheck.hide()
+				itemInventory.hide()
+				
 		4: #enemy
 			if !battleInterface.is_visible():
 				battleInterface.show()
@@ -202,7 +196,6 @@ func hit(hit_object):
 				current_enemy = hit_object
 				hit_object.fight_ready()
 				setWeapons()
-				setSkills()
 				setStats()
 				attack1()
 				attack2()
@@ -226,12 +219,6 @@ func setWeapons():
 				if i.taken != false:
 					weapons[i] = item
 
-func setSkills():
-	for item in equip:
-		if item.has_skill == true:
-			for i in skills:
-				if i.taken != false:
-					weapons[i] = item
 func setStats():
 	battleInterface.playerBlock.healthBar.max_value = playerHealthMax
 	battleInterface.playerBlock.shieldBar.max_value = playerShieldMax
@@ -244,10 +231,8 @@ func update_bars():
 	battleInterface.ATB3.atb.value = time_left3
 	battleInterface.ATB4.atb.value = time_left4
 	
-
-
 func defaultSkillsAndWeaps():
-	weap1.w_name = "Name 1"
+	weap1.w_name = "Empty"
 	weap2.w_name = "Name 2"
 	weap3.w_name = "Name 3"
 	weap4.w_name = "Name 4"
@@ -295,7 +280,7 @@ func end_fight(botType):
 	playerShield = playerShieldMax
 
 func attack1():
-	battleInterface.ATB1.weapon_name.text = "[center]"+weap2.w_name+"[/center]"
+	battleInterface.ATB1.weapon_name.text = "[center]"+weap1.w_name+"[/center]"
 	charge1 = Timer.new()
 	add_child(charge1)
 	charge1.wait_time = weap1.charge_time

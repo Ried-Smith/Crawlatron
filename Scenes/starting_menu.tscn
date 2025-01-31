@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwt361ihhiucj"]
+[gd_scene load_steps=5 format=3 uid="uid://cwt361ihhiucj"]
 
 [ext_resource type="Script" path="res://Scripts/starting_menu.gd" id="1_djbpp"]
-[ext_resource type="Texture2D" uid="uid://t7m8feh5yywe" path="res://Visual Resources/pilot.jpg" id="2_ivnrr"]
+[ext_resource type="Texture2D" uid="uid://ppidiirdekmx" path="res://Visual Resources/updated_start_screen.png" id="2_xn8br"]
+[ext_resource type="Texture2D" uid="uid://b1drpddyhhrsl" path="res://Visual Resources/CrawlatronButton.png" id="3_duak8"]
+[ext_resource type="AudioStream" uid="uid://csjc7x52gwaj4" path="res://Audio Resources/InsaneMenu.wav" id="4_yt2sb"]
 
 [node name="StartingMenu" type="Control"]
 layout_mode = 3
@@ -16,29 +18,41 @@ script = ExtResource("1_djbpp")
 light_mask = 2
 visibility_layer = 2
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 2
+anchor_top = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_ivnrr")
+offset_top = -651.0
+offset_right = 1161.0
+grow_vertical = 0
+texture = ExtResource("2_xn8br")
+expand_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -28.0
-offset_right = 360.0
-offset_bottom = 3.0
-grow_vertical = 2
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -209.0
+offset_right = 608.0
+grow_vertical = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="."]
 layout_mode = 2
-text = "Enter the CRAWLATRON
-"
+offset_left = 74.0
+offset_top = 521.0
+offset_right = 682.0
+offset_bottom = 795.0
+scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 4
+icon = ExtResource("3_duak8")
+flat = true
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_yt2sb")
+volume_db = -10.69
+autoplay = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
